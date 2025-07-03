@@ -1,6 +1,16 @@
 [
   {
     "featured": true,
+    "code": "PROD-20250703-183649",
+    "image": "/uploads/imagen_2025-07-03_183547058.png",
+    "title": "Zapatillas Adidas bad bunny rosadas",
+    "gender": "mujer",
+    "style": "deportivo",
+    "category": "calzado-mujeres",
+    "price": 85
+  },
+  {
+    "featured": true,
     "code": "PROD-20250703-183057",
     "title": "Zapatillas negras 3 lineas",
     "price": 70,
