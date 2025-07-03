@@ -236,6 +236,34 @@
             background: #128C7E;
         }
 
+/* ESTILOS NUEVOS PARA CATEGORÍAS Y DESTACADOS */
+.product-category {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--azul);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.featured-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--amarillo);
+    color: #000;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.product-card.featured {
+    position: relative; /* Necesario para el badge absoluto */
+    border: 2px solid var(--amarillo);
+    transition: all 0.3s ease;
+}
+        
         /* Checkbox para selección múltiple */
         .product-checkbox {
             position: absolute;
@@ -749,18 +777,23 @@
       .then(r => r.json())
       .then(lista => {
         const grid = document.getElementById('products-grid');
+        // Ordenar productos destacados primero
+        lista.sort((a, b) => (b.featured || false) - (a.featured || false));
+        
         lista.forEach(prod => {
           const card = document.createElement('div');
-          card.className = 'product-card';
+          card.className = `product-card ${prod.featured ? 'featured' : ''}`;
           card.innerHTML = `
+            ${prod.featured ? '<div class="featured-badge">⭐ Destacado</div>' : ''}
             <div class="product-image">
               <img src="${prod.image}" alt="${prod.title}">
             </div>
             <div class="product-details">
+              <span class="product-category">${prod.category || 'General'}</span>
               <h3 class="product-title">${prod.title}</h3>
               <div class="product-price">S/${prod.price.toFixed(2)}</div>
               <button class="whatsapp-btn"
-                onclick="enviarWhatsApp('${prod.title} - S/${prod.price}')">
+                onclick="enviarWhatsApp('${prod.title} - S/${prod.price.toFixed(2)}')">
                 <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
               </button>
             </div>
@@ -769,7 +802,7 @@
         });
       })
       .catch(err => console.error('Error cargando catálogo:', err));
-  });
+});
 
         // Función para enviar mensajes por WhatsApp
         function enviarWhatsApp(producto) {
