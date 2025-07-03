@@ -735,6 +735,42 @@
     <script async src="https://www.tiktok.com/embed.js"></script>
 
     <script>
+        // Función que abre WhatsApp con texto prellenado
+  function enviarWhatsApp(productText) {
+    const telefono = '51987654321'; // reemplaza por tu número
+    const url = 'https://wa.me/' + telefono +
+                '?text=' + encodeURIComponent(productText);
+    window.open(url, '_blank');
+  }
+
+  // Al cargar la página, pide el JSON y crea las cards
+  document.addEventListener('DOMContentLoaded', () => {
+    fetch('/productos/index.json')
+      .then(r => r.json())
+      .then(lista => {
+        const grid = document.getElementById('products-grid');
+        lista.forEach(prod => {
+          const card = document.createElement('div');
+          card.className = 'product-card';
+          card.innerHTML = `
+            <div class="product-image">
+              <img src="${prod.image}" alt="${prod.title}">
+            </div>
+            <div class="product-details">
+              <h3 class="product-title">${prod.title}</h3>
+              <div class="product-price">S/${prod.price.toFixed(2)}</div>
+              <button class="whatsapp-btn"
+                onclick="enviarWhatsApp('${prod.title} - S/${prod.price}')">
+                <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+              </button>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      })
+      .catch(err => console.error('Error cargando catálogo:', err));
+  });
+
         // Función para enviar mensajes por WhatsApp
         function enviarWhatsApp(producto) {
             const mensaje = `¡Hola Comercial Charito! Estoy interesado/a en el producto: ${producto}. ¿Podrían darme más información?`;
