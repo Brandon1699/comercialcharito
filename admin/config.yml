@@ -17,6 +17,46 @@ collections:
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Precio (S/.)", name: "price", widget: "number", value_type: "float", step: 0.01 }
       - { label: "Imagen", name: "image", widget: "image" }
-      - { label: "Categoría", name: "category", widget: "select", 
-          options: ["Ropa Mujer", "Ropa Hombre", "Ropa Niños", "Calzado", "Accesorios"] }
       - { label: "Destacado", name: "featured", widget: "boolean", default: false }
+      
+      # Sistema de categorías jerárquico
+      - label: "Género"
+        name: "gender"
+        widget: "select"
+        options:
+          - { label: "Mujer", value: "mujer" }
+          - { label: "Hombre", value: "hombre" }
+          - { label: "Niños y Niñas", value: "ninos" }
+      
+      - label: "Estilo"
+        name: "style"
+        widget: "select"
+        options:
+          - { label: "Casual", value: "casual" }
+          - { label: "Deportivo", value: "deportivo" }
+          - { label: "Otro", value: "otro" }
+      
+      - label: "Tipo de Prenda"
+        name: "category"
+        widget: "select"
+        options:
+          # Categorías para Mujer
+          - { label: "Calzado Mujeres", value: "calzado-mujeres" }
+          - { label: "Pantalones Mujeres", value: "pantalones-mujeres" }
+          - { label: "Vestidos Mujeres", value: "vestidos-mujeres" }
+          - { label: "Poleras y Casacas Mujeres", value: "poleras-casacas-mujeres" }
+          - { label: "Polos Mujeres", value: "polos-mujeres" }
+          - { label: "Conjuntos Mujeres", value: "conjuntos-mujeres" }
+          - { label: "Blusas Mujeres", value: "blusas-mujeres" }
+          - { label: "Faldas Mujeres", value: "faldas-mujeres" }
+          
+          # Categorías para Hombre
+          - { label: "Calzado Hombres", value: "calzado-hombres" }
+          - { label: "Pantalones Hombres", value: "pantalones-hombres" }
+          - { label: "Polos Hombres", value: "polos-hombres" }
+          - { label: "Poleras y Casacas Hombres", value: "poleras-casacas-hombres" }
+          - { label: "Conjuntos Hombres", value: "conjuntos-hombres" }
+          
+          # Categorías para Niños/Niñas
+          - { label: "Calzado Niños y Niñas", value: "calzado-ninos" }
+          - { label: "Pantalones Niños y Niñas", value: "pantalones-ninos" }
