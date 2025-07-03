@@ -1,0 +1,30 @@
+[
+  {
+    "title": "test",
+    "price": 1,
+    "description": "test",
+    "whatsapp": "test",
+    "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png"
+  },
+  {
+    "title": "test2",
+    "price": 2,
+    "description": "test2",
+    "whatsapp": "test2",
+    "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png"
+  },
+  {
+    "title": "Zapatillas adidas",
+    "price": 200,
+    "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png",
+    "description": "prueba",
+    "whatsapp": "https://api.whatsapp.com/send/?phone=51940246849&text&type=phone_number&app_absent=0"
+  },
+  {
+    "title": "Zapatillas de cars",
+    "price": 20,
+    "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png",
+    "description": "Zapatillas bonitas",
+    "whatsapp": "https://api.whatsapp.com/send/?phone=51940246849&text&type=phone_number&app_absent=0"
+  }
+]
