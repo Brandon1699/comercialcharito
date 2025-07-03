@@ -3,5 +3,7 @@
   "price": 1,
   "description": "test",
   "whatsapp": "test",
-  "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png"
+  "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png",
+  "featured": true,
+  "category": "Ropa Hombre"
 }
