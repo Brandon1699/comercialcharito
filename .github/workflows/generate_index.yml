@@ -1,6 +1,5 @@
 name: Generar index.json de productos
 
-# 1) Permisos: autorizamos push con el GITHUB_TOKEN
 permissions:
   contents: write
 
@@ -14,54 +13,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 2) Checkout con persistencia de credenciales
       - name: Checkout repo
         uses: actions/checkout@v3
         with:
           persist-credentials: true
           fetch-depth: 0
 
-      # 3) Generar index.json
       - name: Generar index.json
         run: |
-          cd productos
-          echo "Listando archivos en productos/:"
-          ls -l
-          echo "---"
-      
-          files=$(ls *.json | grep -v index.json || true)
-          echo "Archivos seleccionados para combinar: $files"
-      
+          echo "🗂 Listando archivos JSON en productos/:"
+          ls -l productos/*.json || echo "No hay archivos"
+          
+          files=$(ls productos/*.json | grep -v productos/index.json || true)
+          echo "🧩 Archivos seleccionados: $files"
+
           if [ -n "$files" ]; then
-            jq -s '.' $files > index.json
-            echo "✅ index.json creado con contenido de: $files"
+            jq -s '.' $files > productos/index.json
+            echo "✅ index.json generado"
           else
-            echo "⚠️ No se encontraron archivos JSON para combinar."
+            echo "⚠️ No se encontraron archivos para combinar"
           fi
 
-      - name: Mostrar archivos .json detectados
-        run: |
-          cd productos
-          files=$(ls *.json | grep -v index.json || true)
-          echo "Archivos detectados: $files"
-          if [ -n "$files" ]; then
-          jq -s '.' $files > index.json
-          echo "index.json regenerado con: $files"
-          else
-          echo "No se encontraron archivos para combinar."
-          fi
-
-
-      # 4) Commit de index.json si cambió
-      - name: Commit index.json
+      - name: Commit index.json si cambió
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "actions@github.com"
           git add productos/index.json
-          git diff --quiet || git commit -m "ci: actualizar productos/index.json"
+          git diff --cached --quiet || git commit -m "ci: actualizar productos/index.json"
 
-      # 5) Push a la rama main
-      - name: Push cambios
+      - name: Push a main
         run: git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
