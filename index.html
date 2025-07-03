@@ -771,34 +771,39 @@
   // Al cargar la página, pide el JSON y crea las cards
   document.addEventListener('DOMContentLoaded', () => {
     fetch('/productos/index.json')
-      .then(r => r.json())
-      .then(lista => {
-        const grid = document.getElementById('products-grid');
-        // Ordenar productos destacados primero
-        lista.sort((a, b) => (b.featured || false) - (a.featured || false));
-        
-        lista.forEach(prod => {
-          const card = document.createElement('div');
-          card.className = `product-card ${prod.featured ? 'featured' : ''}`;
-          card.innerHTML = `
-            ${prod.featured ? '<div class="featured-badge">⭐ Destacado</div>' : ''}
-            <div class="product-image">
-              <img src="${prod.image}" alt="${prod.title}">
-            </div>
-            <div class="product-details">
-              <span class="product-category">${prod.category || 'General'}</span>
-              <h3 class="product-title">${prod.title}</h3>
-              <div class="product-price">S/${prod.price.toFixed(2)}</div>
-              <button class="whatsapp-btn"
-                onclick="enviarWhatsApp('${prod.title} - S/${prod.price.toFixed(2)}')">
-                <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
-              </button>
-            </div>
-          `;
-          grid.appendChild(card);
-        });
-      })
-      .catch(err => console.error('Error cargando catálogo:', err));
+        .then(r => r.json())
+        .then(products => {
+            const featuredGrid = document.getElementById('featured-products');
+            // Filtrar solo productos destacados
+            const featuredProducts = products.filter(p => p.featured);
+            
+            if(featuredProducts.length === 0) {
+                featuredGrid.innerHTML = '<p class="no-featured">No hay productos destacados en este momento. Visita nuestro <a href="/catalogo.html">catálogo completo</a></p>';
+                return;
+            }
+            
+            featuredProducts.forEach(prod => {
+                const card = document.createElement('div');
+                card.className = 'product-card featured';
+                card.innerHTML = `
+                    <div class="featured-badge">⭐ Destacado</div>
+                    <div class="product-image">
+                        <img src="${prod.image}" alt="${prod.title}">
+                    </div>
+                    <div class="product-details">
+                        <span class="product-category">${prod.category || 'General'}</span>
+                        <h3 class="product-title">${prod.title}</h3>
+                        <div class="product-price">S/${prod.price.toFixed(2)}</div>
+                        <button class="whatsapp-btn"
+                            onclick="enviarWhatsApp('${prod.title} - S/${prod.price.toFixed(2)}')">
+                            <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+                        </button>
+                    </div>
+                `;
+                featuredGrid.appendChild(card);
+            });
+        })
+        .catch(err => console.error('Error cargando productos destacados:', err));
 });
 
         // Función para enviar mensajes por WhatsApp
