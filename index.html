@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comercial Charito - Moda con Estilo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Boxicons para iconos -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <!-- Montserrat desde Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet" />
+    <style>
+        /* PALETA DE COLORES DE MARCA */
+        :root {
+            --azul: #183a79;
+            --rosa: #ec1a59;
+            --amarillo: #ffb90a;
+            --texto: #333;
+            --fondo: #ffffff;
+            --blanco: #ffffff;
+            --gris: #f5f5f5;
+            --footer-bg: #1b1b1b;
+            --footer-text: #ccc;
+            --footer-divider: #555;
+        }
+        
+        /* NAVIGATION BAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--blanco);
+            padding: 9px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 200px;
+            justify-content: flex-start;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-weight: bold;
+            color: var(--rosa);
+            font-size: 1.2rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0 auto;
+            padding: 0;
+            flex: 2;
+            justify-content: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            font-size: 18px;
+        }
+
+        .nav-menu a:hover {
+            color: var(--rosa);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            flex: 1;
+            justify-content: flex-end;
+            min-width: 150px;
+        }
+
+        .social-icons a {
+            color: #333;
+            font-size: 24px;
+            transition: color 0.2s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--rosa);
+        }
+
+        /* CARRUSEL DE BANNERS */
+        .banner-carousel {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+            margin: 0 auto;
+            background: transparent;
+        }
+        
+        .banner-wrapper {
+            display: flex;
+            transition: transform 0.8s ease-in-out;
+            height: 100%;
+        }
+        
+        .banner-slide {
+            min-width: 100%;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .banner-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* ESTILOS GENERALES */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--fondo);
+            color: var(--texto);
+            line-height: 1.6;
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .section {
+            padding: 3rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--azul);
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--rosa);
+            border-radius: 2px;
+        }
+        
+        /* PRODUCTOS - NUEVO DISEÑO */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            background: var(--blanco);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image {
+            height: 220px;
+            background: var(--gris);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: var(--azul);
+            transition: background-color 0.2s ease;
+        }
+        
+        .product-card:hover .product-image {
+            background-color: #e0e0e0;
+        }
+        
+        .product-details {
+            padding: 1.5rem;
+            text-align: center;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .product-title {
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            color: var(--azul);
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--rosa);
+            margin: 1rem 0;
+        }
+        
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s ease;
+            font-size: 1.05rem;
+        }
+        
+        .whatsapp-btn:hover {
+            background: #128C7E;
+        }
+
+        /* Checkbox para selección múltiple */
+        .product-checkbox {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 20px;
+            height: 20px;
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        /* Botón para enviar múltiples productos */
+        .send-selected-btn {
+            display: none;
+            background: var(--rosa);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px auto;
+            transition: background 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .send-selected-btn:hover {
+            background: #c71545;
+        }
+
+        .send-selected-btn.show {
+            display: block;
+        }
+
+        .multi-select-text {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: var(--azul);
+            font-style: italic;
+        }
+        
+        /* SECCIÓN TRANSMISIONES */
+        .transmisiones-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 40px;
+        }
+        
+        .tiktok-video-container {
+            max-width: 500px;
+            margin: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: none;
+            position: relative;
+            background: transparent;
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .transmisiones-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .proximas-transmisiones {
+            margin-top: 2rem;
+        }
+        
+        .proximas-transmisiones h4 {
+            color: var(--rosa);
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .transmisiones-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .transmisiones-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .transmisiones-list i {
+            color: var(--azul);
+            font-size: 1.2rem;
+            min-width: 25px;
+        }
+        
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+        
+        /* BOTONES */
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            margin: 0;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+            border: 2px solid transparent;
+        }
+        
+        .btn-tiktok {
+            background: #000;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-tiktok:hover {
+            background: transparent;
+            color: #000;
+            border-color: #000;
+        }
+        
+        .btn-facebook {
+            background: #1877F2;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-facebook:hover {
+            background: transparent;
+            color: #1877F2;
+            border-color: #1877F2;
+        }
+        
+        /* FOOTER */
+        footer {
+            background-color: var(--footer-bg);
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-top: 4rem;
+        }
+
+        .footer-left {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-left img {
+            height: 108px;
+            width: auto;
+        }
+
+        .divider {
+            width: 1px;
+            background-color: var(--footer-divider);
+            margin: 0 40px;
+            height: 120px;
+        }
+
+        .footer-center {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-center a {
+            color: var(--footer-text);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-center a:hover {
+            color: var(--blanco);
+        }
+
+        .footer-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
+        }
+
+        .footer-social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social-icons a {
+            color: var(--footer-text);
+            font-size: 1.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-social-icons a:hover {
+            color: var(--amarillo);
+        }
+
+        .location-text {
+            color: var(--footer-text);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .location-text:hover {
+            color: var(--amarillo);
+        }
+
+        .copyright {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--footer-text);
+            padding: 20px 0;
+            border-top: 1px solid var(--footer-divider);
+            background-color: var(--footer-bg);
+        }
+
+        /* WHATSAPP FLOTANTE */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            z-index: 99;
+            transition: transform 0.2s ease;
+            text-decoration: none !important;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.05);
+            text-decoration: none;
+        }
+
+        .whatsapp-float i {
+            text-decoration: none !important;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 8px 15px;
+                gap: 12px;
+            }
+            
+            .nav-menu {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 8px;
+                gap: 15px;
+                flex: none;
+            }
+            
+            .nav-menu a {
+                font-size: 16px;
+            }
+            
+            .social-icons {
+                order: 2;
+                gap: 13.5px;
+                justify-content: center;
+                flex: none;
+                width: 100%;
+            }
+            
+            .section {
+                padding: 2rem 0;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .tiktok-video-container {
+                max-width: 100%;
+                margin: 0 auto 2rem;
+            }
+            
+            .btn {
+                display: block;
+                width: 100%;
+                margin: 12px 0;
+                text-align: center;
+            }
+            
+            .social-buttons {
+                flex-direction: column;
+            }
+            
+            .transmisiones-content {
+                flex-direction: column;
+            }
+            
+            .banner-carousel {
+                height: 200px;
+            }
+            
+            footer {
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 20px;
+                text-align: center;
+            }
+
+            .divider {
+                display: none;
+            }
+
+            .footer-left, 
+            .footer-center, 
+            .footer-right {
+                align-items: center;
+                text-align: center;
+                width: 100%;
+            }
+
+            .footer-left img {
+                height: 80px;
+            }
+
+            .footer-right {
+                margin-top: 20px;
+                align-items: center;
+            }
+
+            .footer-social-icons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logotipo.png" alt="Logo Comercial Charito" />
+            <span class="logo-text">COMERCIAL CHARITO</span>
+        </div>
+
+        <ul class="nav-menu">
+            <li><a href="#productos">Catálogo</a></li>
+            <li><a href="https://wa.me/51940246849">Contacto</a></li>
+            <li><a href="#transmisiones">Transmisiones</a></li>
+        </ul>
+
+        <div class="social-icons">
+            <a href="https://www.facebook.com/CharitoYsusNovedades/?locale=es_LA" target="_blank"><i class='bx bxl-facebook-circle'></i></a>
+            <a href="https://www.tiktok.com/@c.charito?is_from_webapp=1&sender_device=pc" target="_blank"><i class='bx bxl-tiktok'></i></a>
+            <a href="https://wa.me/51940246849"><i class='bx bxl-whatsapp'></i></a>
+        </div>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <div class="main-container">
+        <!-- Carrusel de Banners -->
+        <div class="banner-carousel">
+            <div class="banner-wrapper">
+                <div class="banner-slide">
+                    <img src="banner.png" alt="Banner principal Comercial Charito">
+                </div>
+                <div class="banner-slide">
+                    <img src="bannert.png" alt="Banner de transmisiones Comercial Charito">
+                </div>
+                <div class="banner-slide">
+                    <img src="bannerc.png" alt="Banner promocional Comercial Charito">
+                </div>
+            </div>
+        </div>
+
+        <!-- Productos -->
+        <section class="section" id="productos">
+            <div class="section-title">
+                <h2>Nuestros Productos</h2>
+                <p>Descubre las mejores prendas para toda la familia</p>
+            </div>
+            
+            <div class="products-grid">
+                <!-- Producto 1 -->
+                <div class="product-card">
+                    <input type="checkbox" class="product-checkbox" data-product="Vestido Elegante - S/59.99">
+                    <div class="product-image">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Vestido Elegante</h3>
+                        <div class="product-price">S/59.99</div>
+                        <button class="whatsapp-btn" onclick="enviarWhatsApp('Vestido Elegante - S/59.99')">
+                            <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Producto 2 -->
+                <div class="product-card">
+                    <input type="checkbox" class="product-checkbox" data-product="Camisa Casual - S/34.99">
+                    <div class="product-image">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Camisa Casual</h3>
+                        <div class="product-price">S/34.99</div>
+                        <button class="whatsapp-btn" onclick="enviarWhatsApp('Camisa Casual - S/34.99')">
+                            <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Producto 3 -->
+                <div class="product-card">
+                    <input type="checkbox" class="product-checkbox" data-product="Conjunto Infantil - S/32.99">
+                    <div class="product-image">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Conjunto Infantil</h3>
+                        <div class="product-price">S/32.99</div>
+                        <button class="whatsapp-btn" onclick="enviarWhatsApp('Conjunto Infantil - S/32.99')">
+                            <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Producto 4 -->
+                <div class="product-card">
+                    <input type="checkbox" class="product-checkbox" data-product="Zapatillas Urbanas - S/39.99">
+                    <div class="product-image">
+                        <i class="fas fa-shoe-prints"></i>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Zapatillas Urbanas</h3>
+                        <div class="product-price">S/39.99</div>
+                        <button class="whatsapp-btn" onclick="enviarWhatsApp('Zapatillas Urbanas - S/39.99')">
+                            <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <p class="multi-select-text">¡Puedes seleccionar varios productos y consultar por todos a la vez!</p>
+
+            <!-- Botón para enviar productos seleccionados -->
+            <button id="sendSelectedBtn" class="send-selected-btn">
+                <i class="fab fa-whatsapp"></i> Pedir productos seleccionados
+            </button>
+        </section>
+
+        <!-- Transmisiones con Video de TikTok -->
+        <section class="section" id="transmisiones">
+            <div class="section-title">
+                <h2>Transmisiones en Vivo</h2>
+            </div>
+            
+            <div class="transmisiones-content">
+                <!-- Contenedor para el video de TikTok -->
+                <div class="tiktok-video-container">
+                    <!-- Bloque de TikTok proporcionado -->
+                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@c.charito/video/7279466252949638406" 
+                        data-video-id="7279466252949638406">
+                        <section> 
+                            <a target="_blank" title="@c.charito" href="https://www.tiktok.com/@c.charito?refer=embed">@c.charito</a> 
+                            Emprende con nosotros! Realizamos envíos a todo Lima y Provincias 🇵🇪 Pedidos al 940243849 💢 
+                            <a title="emprendimiento" target="_blank" href="https://www.tiktok.com/tag/emprendimiento?refer=embed">#emprendimiento</a> 
+                            <a title="comercialcharito" target="_blank" href="https://www.tiktok.com/tag/comercialcharito?refer=embed">#comercialcharito</a> 
+                            <a target="_blank" title="♬ sonido original - Comercial Charito" 
+                                href="https://www.tiktok.com/music/sonido-original-7279466294100560646?refer=embed">♬ sonido original - Comercial Charito</a> 
+                        </section>
+                    </blockquote>
+                </div>
+                
+                <div class="transmisiones-info">
+                    <div class="proximas-transmisiones">
+                        <h4>Horario de transmisiones:</h4>
+                        <ul class="transmisiones-list">
+                            <li>
+                                <i class="fas fa-clock"></i>
+                                De lunes a sábado a las 12:00 AM
+                            </li>
+                        </ul>
+                        <p style="margin-top: 1.5rem; font-size: 1.1rem;">
+                            Síguenos en nuestras redes sociales para enterarte de todas nuestras transmisiones en vivo y novedades.
+                        </p>
+                    </div>
+                    
+                    <!-- Botones para redes sociales -->
+                    <div class="social-buttons">
+                        <a href="https://www.tiktok.com/@c.charito?is_from_webapp=1&sender_device=pc" class="btn btn-tiktok" target="_blank">
+                            <i class="fab fa-tiktok"></i> Síguenos en TikTok
+                        </a>
+                        <a href="https://www.facebook.com/CharitoYsusNovedades/?locale=es_LA" class="btn btn-facebook" target="_blank">
+                            <i class="fab fa-facebook-f"></i> Síguenos en Facebook
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- WhatsApp flotante -->
+    <a href="https://wa.me/51940246849" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-left">
+            <img src="logo.png" alt="Comercial Charito" />
+        </div>
+        <div class="divider"></div>
+        <div class="footer-center">
+            <a href="#productos">Catálogo</a>
+            <a href="#transmisiones">Transmisiones</a>
+            <a href="https://wa.me/51940246849">Contacto</a>
+        </div>
+        <div class="footer-right">
+            <div class="footer-social-icons">
+                <a href="https://www.facebook.com/CharitoYsusNovedades/?locale=es_LA" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@c.charito?is_from_webapp=1&sender_device=pc" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://wa.me/51940246849"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <a href="https://maps.app.goo.gl/nxpj4PHsxNGPmEER9" class="location-text" target="_blank">
+                Ubicación: Jr. Lima con Grau 681, Comas
+            </a>
+        </div>
+    </footer>
+    <div class="copyright">
+        &copy; 2023 Comercial Charito. Todos los derechos reservados.
+    </div>
+
+    <!-- Script de TikTok -->
+    <script async src="https://www.tiktok.com/embed.js"></script>
+
+    <script>
+        // Función para enviar mensajes por WhatsApp
+        function enviarWhatsApp(producto) {
+            const mensaje = `¡Hola Comercial Charito! Estoy interesado/a en el producto: ${producto}. ¿Podrían darme más información?`;
+            const url = `https://wa.me/51940246849?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+        }
+        
+        // Asignar eventos a los botones de WhatsApp
+        document.querySelectorAll('.whatsapp-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const producto = this.closest('.product-details').querySelector('.product-title').textContent + ' - ' + 
+                                this.closest('.product-details').querySelector('.product-price').textContent;
+                enviarWhatsApp(producto);
+            });
+        });
+        
+        // Navegación suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Carrusel de banners
+        let currentSlide = 0;
+        const bannerWrapper = document.querySelector('.banner-wrapper');
+        const slides = document.querySelectorAll('.banner-slide');
+        const totalSlides = slides.length;
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+        
+        function updateCarousel() {
+            const offset = -currentSlide * 100;
+            bannerWrapper.style.transform = `translateX(${offset}%)`;
+        }
+        
+        // Cambiar slide cada 5 segundos
+        setInterval(nextSlide, 5000);
+        
+        // Iniciar carrusel
+        updateCarousel();
+
+        // Funcionalidad para selección múltiple de productos
+        const checkboxes = document.querySelectorAll('.product-checkbox');
+        const sendSelectedBtn = document.getElementById('sendSelectedBtn');
+
+        // Mostrar/ocultar botón cuando se seleccionan productos
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const selectedProducts = document.querySelectorAll('.product-checkbox:checked');
+                if (selectedProducts.length > 0) {
+                    sendSelectedBtn.classList.add('show');
+                } else {
+                    sendSelectedBtn.classList.remove('show');
+                }
+            });
+        });
+
+        // Enviar productos seleccionados por WhatsApp
+        sendSelectedBtn.addEventListener('click', function() {
+            const selectedProducts = document.querySelectorAll('.product-checkbox:checked');
+            let productsList = '';
+            
+            selectedProducts.forEach((product, index) => {
+                productsList += `${index + 1}. ${product.getAttribute('data-product')}\n`;
+            });
+            
+            const mensaje = `¡Hola Comercial Charito! Estoy interesado/a en los siguientes productos:\n\n${productsList}\n¿Podrían darme más información?`;
+            const url = `https://wa.me/51940246849?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+        });
+    </script>
+</body>
+</html>
