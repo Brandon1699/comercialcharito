@@ -1,0 +1,35 @@
+name: Generar index.json de productos
+
+on:
+  push:
+    paths:
+      - 'productos/**'
+
+jobs:
+  update-index:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Generar index.json
+        run: |
+          cd productos
+          files=$(ls *.json | grep -v index.json || true)
+          if [ -n "$files" ]; then
+            jq -s '.' $files > index.json
+            echo "index.json regenerado con: $files"
+          fi
+
+      - name: Commit de index.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+          git add productos/index.json
+          git diff --quiet || git commit -m "ci: actualizar productos/index.json"
+
+      - name: Push de cambios
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
