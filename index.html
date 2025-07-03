@@ -745,7 +745,7 @@
 
   // Al cargar la página, pide el JSON y crea las cards
   document.addEventListener('DOMContentLoaded', () => {
-    fetch('/productos/zapas.json')
+    fetch('/productos/index.json')
       .then(r => r.json())
       .then(lista => {
         const grid = document.getElementById('products-grid');
