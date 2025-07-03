@@ -1,7 +1,7 @@
 {
   "title": "Zapatillas adidas",
-  "price": 1500,
-  "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde-1-1-.png",
+  "price": 200,
+  "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png",
   "description": "prueba",
   "whatsapp": "https://api.whatsapp.com/send/?phone=51940246849&text&type=phone_number&app_absent=0"
 }
