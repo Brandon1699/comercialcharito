@@ -7,6 +7,13 @@
     "category": "Ropa Hombre"
   },
   {
+    "featured": true,
+    "title": "asdasd",
+    "price": 5,
+    "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde-1-1-.png",
+    "category": "Ropa Hombre"
+  },
+  {
     "title": "test65",
     "price": 1,
     "description": "test",
