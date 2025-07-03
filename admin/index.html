@@ -5,10 +5,12 @@
   <title>Admin | Netlify CMS</title>
 </head>
 <body>
-  <!-- Contenedor donde Netlify CMS inyectará su UI -->
   <div id="nc-root"></div>
 
-  <!-- Script de Netlify CMS -->
+  <!-- Carga explícita del Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <!-- Luego carga Netlify CMS -->
   <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
 </body>
 </html>
