@@ -313,6 +313,25 @@
             border-color: var(--azul);
         }
 
+        .reset-filters-btn {
+            background: var(--rosa);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .reset-filters-btn:hover {
+            background: #c71545;
+        }
+
+
         /* ESTILOS PARA SELECCIÓN MÚLTIPLE */
         .product-selector {
             position: absolute;
@@ -536,6 +555,19 @@
             .sort-options {
                 justify-content: center;
             }
+
+            .reset-filters-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .product-code {
+                display: block;
+                font-size: 0.7rem;
+                color: #666;
+                margin-bottom: 0.3rem;
+                font-family: monospace;
+            }
             
             footer {
                 flex-direction: column;
@@ -611,6 +643,9 @@
                         <option value="hombre">Hombre</option>
                         <option value="ninos">Niños/Niñas</option>
                     </select>
+                    <button id="reset-filters" class="reset-filters-btn">
+                        <i class="fas fa-times"></i> Limpiar filtros
+                    </button>
                 </div>
                 
                 <div class="filter-group">
@@ -708,7 +743,26 @@
                 let allProducts = [];
                 let currentSort = 'featured';
                 let selectedProducts = [];
-                
+
+                // Botón para resetear filtros
+                    const resetFiltersBtn = document.getElementById('reset-filters');
+                    resetFiltersBtn.addEventListener('click', resetFilters);
+                    
+                // Función mejorada para resetear filtros
+                function resetFilters() {
+                    genderFilter.value = '';
+                    styleFilter.value = '';
+                    categoryFilter.value = '';
+                    searchBox.value = '';
+                    
+                    // Resetear ordenación a "Destacados"
+                    sortButtons.forEach(btn => btn.classList.remove('active'));
+                    document.querySelector('.sort-btn[data-sort="featured"]').classList.add('active');
+                    currentSort = 'featured';
+                    
+                    renderProducts(allProducts);
+                }
+            
                 // Cargar productos
                 fetch('/productos/index.json')
                     .then(r => r.json())
@@ -836,11 +890,12 @@
                                 <img src="${prod.image}" alt="${prod.title}" loading="lazy">
                             </div>
                             <div class="product-details">
+                                <span class="product-code">Código: ${prod.code || 'N/A'}</span>
                                 <span class="product-category">${prod.category || 'General'}</span>
                                 <h3 class="product-title">${prod.title}</h3>
                                 <div class="product-price">S/${prod.price.toFixed(2)}</div>
                                 <button class="whatsapp-btn"
-                                    onclick="enviarWhatsApp('${prod.title} - S/${prod.price.toFixed(2)}')">
+                                    onclick="enviarWhatsApp('${prod.title} (Código: ${prod.code || 'N/A'}) - S/${prod.price.toFixed(2)}')">
                                     <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
                                 </button>
                             </div>
