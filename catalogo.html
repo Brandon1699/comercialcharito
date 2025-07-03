@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Mismo head que tu index.html actual -->
+    <title>Catálogo Completo | Comercial Charito</title>
+    <!-- Añadir estos estilos adicionales -->
+    <style>
+        /* Filtros y controles del catálogo */
+        .catalog-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .filter-select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--azul);
+            background: white;
+            color: var(--azul);
+            font-weight: 500;
+        }
+        
+        .search-box {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            min-width: 250px;
+        }
+        
+        .sort-options {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .sort-btn {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .sort-btn.active {
+            background: var(--azul);
+            color: white;
+            border-color: var(--azul);
+        }
+        
+        .view-all-container {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .view-all-btn {
+            background: var(--rosa);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .view-all-btn:hover {
+            background: #d3164d;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Mismo header y navbar que tu index.html actual -->
+    
+    <div class="main-container">
+        <section class="section" id="catalogo">
+            <div class="section-title">
+                <h2>Catálogo Completo</h2>
+                <p>Explora todos nuestros productos</p>
+            </div>
+            
+            <div class="catalog-controls">
+                <div class="filter-group">
+                    <select id="category-filter" class="filter-select">
+                        <option value="">Todas las categorías</option>
+                        <option value="Ropa Mujer">Ropa Mujer</option>
+                        <option value="Ropa Hombre">Ropa Hombre</option>
+                        <option value="Ropa Niños">Ropa Niños</option>
+                        <option value="Calzado">Calzado</option>
+                        <option value="Accesorios">Accesorios</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <input type="text" id="search-box" class="search-box" placeholder="Buscar productos...">
+                </div>
+                
+                <div class="filter-group">
+                    <div class="sort-options">
+                        <button class="sort-btn active" data-sort="featured">Destacados</button>
+                        <button class="sort-btn" data-sort="price-asc">Precio ↑</button>
+                        <button class="sort-btn" data-sort="price-desc">Precio ↓</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="products-grid" id="catalog-products"></div>
+            
+            <div class="view-all-container">
+                <a href="/index.html#destacados" class="view-all-btn">Volver a destacados</a>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Mismo footer y WhatsApp flotante que tu index.html actual -->
+
+    <script>
+        // Código JavaScript para el catálogo
+        document.addEventListener('DOMContentLoaded', () => {
+            const catalogGrid = document.getElementById('catalog-products');
+            const categoryFilter = document.getElementById('category-filter');
+            const searchBox = document.getElementById('search-box');
+            const sortButtons = document.querySelectorAll('.sort-btn');
+            
+            let allProducts = [];
+            let currentSort = 'featured';
+            
+            // Cargar productos
+            fetch('/productos/index.json')
+                .then(r => r.json())
+                .then(products => {
+                    allProducts = products;
+                    renderProducts(products);
+                });
+            
+            // Funciones de filtrado y ordenación
+            function renderProducts(products) {
+                catalogGrid.innerHTML = '';
+                
+                // Aplicar filtros
+                let filtered = [...products];
+                
+                // Filtro por categoría
+                if(categoryFilter.value) {
+                    filtered = filtered.filter(p => p.category === categoryFilter.value);
+                }
+                
+                // Filtro por búsqueda
+                if(searchBox.value) {
+                    const term = searchBox.value.toLowerCase();
+                    filtered = filtered.filter(p => 
+                        p.title.toLowerCase().includes(term) || 
+                        (p.description && p.description.toLowerCase().includes(term))
+                    );
+                }
+                
+                // Aplicar ordenación
+                switch(currentSort) {
+                    case 'featured':
+                        filtered.sort((a, b) => (b.featured || false) - (a.featured || false));
+                        break;
+                    case 'price-asc':
+                        filtered.sort((a, b) => a.price - b.price);
+                        break;
+                    case 'price-desc':
+                        filtered.sort((a, b) => b.price - a.price);
+                        break;
+                }
+                
+                // Renderizar productos
+                filtered.forEach(prod => {
+                    const card = document.createElement('div');
+                    card.className = `product-card ${prod.featured ? 'featured' : ''}`;
+                    card.innerHTML = `
+                        ${prod.featured ? '<div class="featured-badge">⭐ Destacado</div>' : ''}
+                        <div class="product-image">
+                            <img src="${prod.image}" alt="${prod.title}">
+                        </div>
+                        <div class="product-details">
+                            <span class="product-category">${prod.category || 'General'}</span>
+                            <h3 class="product-title">${prod.title}</h3>
+                            <div class="product-price">S/${prod.price.toFixed(2)}</div>
+                            <button class="whatsapp-btn"
+                                onclick="enviarWhatsApp('${prod.title} - S/${prod.price.toFixed(2)}')">
+                                <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+                            </button>
+                        </div>
+                    `;
+                    catalogGrid.appendChild(card);
+                });
+            }
+            
+            // Event listeners
+            categoryFilter.addEventListener('change', () => renderProducts(allProducts));
+            searchBox.addEventListener('input', () => renderProducts(allProducts));
+            
+            sortButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    sortButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentSort = this.dataset.sort;
+                    renderProducts(allProducts);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
