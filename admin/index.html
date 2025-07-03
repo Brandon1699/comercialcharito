@@ -3,14 +3,34 @@
 <head>
   <meta charset="utf-8" />
   <title>Admin | Netlify CMS</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Esperar a que Netlify CMS esté cargado
+      if (typeof CMS !== 'undefined') {
+        CMS.registerEventListener({
+          name: 'preSave',
+          handler: ({ entry }) => {
+            // Generar código solo para nuevos productos
+            if (!entry.get('data').get('code')) {
+              const now = new Date();
+              const code = 'PROD-' + now.getFullYear() + 
+                           String(now.getMonth() + 1).padStart(2, '0') + 
+                           String(now.getDate()).padStart(2, '0') + '-' +
+                           String(now.getHours()).padStart(2, '0') +
+                           String(now.getMinutes()).padStart(2, '0') +
+                           String(now.getSeconds()).padStart(2, '0');
+              return entry.get('data').set('code', code);
+            }
+            return entry.get('data');
+          }
+        });
+      }
+    });
+  </script>
 </head>
 <body>
   <div id="nc-root"></div>
-
-  <!-- Carga explícita del Identity Widget -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-  <!-- Luego carga Netlify CMS -->
   <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
 </body>
 </html>
