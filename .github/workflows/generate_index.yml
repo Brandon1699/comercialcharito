@@ -22,16 +22,24 @@ jobs:
           fetch-depth: 0
 
       # 3) Generar index.json
-      - name: Generar index.json
+      - name: Mostrar archivos .json detectados
+        run: |
+          cd productos
+          echo "Archivos en /productos:"
+          ls -l *.json || echo "No hay archivos"
+
+      - name: Mostrar archivos .json detectados
         run: |
           cd productos
           files=$(ls *.json | grep -v index.json || true)
+          echo "Archivos detectados: $files"
           if [ -n "$files" ]; then
-            jq -s '.' $files > index.json
-            echo "index.json regenerado con: $files"
+          jq -s '.' $files > index.json
+          echo "index.json regenerado con: $files"
           else
-            echo "No hay .json de productos"
+          echo "No se encontraron archivos para combinar."
           fi
+
 
       # 4) Commit de index.json si cambió
       - name: Commit index.json
