@@ -1,5 +1,9 @@
 name: Generar index.json de productos
 
+# 1) Permisos: autorizamos push con el GITHUB_TOKEN
+permissions:
+  contents: write
+
 on:
   push:
     paths:
@@ -10,9 +14,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      # 2) Checkout con persistencia de credenciales
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+          fetch-depth: 0
 
+      # 3) Generar index.json
       - name: Generar index.json
         run: |
           cd productos
@@ -20,16 +29,20 @@ jobs:
           if [ -n "$files" ]; then
             jq -s '.' $files > index.json
             echo "index.json regenerado con: $files"
+          else
+            echo "No hay .json de productos"
           fi
 
-      - name: Commit de index.json
+      # 4) Commit de index.json si cambió
+      - name: Commit index.json
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "actions@github.com"
           git add productos/index.json
           git diff --quiet || git commit -m "ci: actualizar productos/index.json"
 
-      - name: Push de cambios
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      # 5) Push a la rama main
+      - name: Push cambios
+        run: git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
