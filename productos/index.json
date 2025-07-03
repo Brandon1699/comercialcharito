@@ -32,11 +32,15 @@
     "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png"
   },
   {
-    "title": "Zapatillas adidas",
+    "gender": "hombre",
     "price": 200,
+    "featured": false,
+    "style": "casual",
+    "whatsapp": "https://api.whatsapp.com/send/?phone=51940246849&text&type=phone_number&app_absent=0",
+    "title": "Zapatillas adidas",
     "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png",
     "description": "prueba",
-    "whatsapp": "https://api.whatsapp.com/send/?phone=51940246849&text&type=phone_number&app_absent=0"
+    "category": "calzado-hombres"
   },
   {
     "title": "Zapatillas de cars",
