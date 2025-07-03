@@ -1,2 +1,16 @@
-productos/polo.json
-productos/zapas.json
+[
+  {
+  "title": "zapas",
+  "price": 150,
+  "description": "zapas",
+  "whatsapp": "https://api.whatsapp.com/send/?phone=51940246849&text&type=phone_number&app_absent=0",
+  "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png"
+},
+  {
+  "title": "polo",
+  "price": 150,
+  "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png",
+  "description": "pooito",
+  "whatsapp": "944085229"
+}
+]
