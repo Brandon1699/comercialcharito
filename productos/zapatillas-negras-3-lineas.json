@@ -1,0 +1,10 @@
+{
+  "featured": true,
+  "code": "{{now | date('YmdHis')}}",
+  "title": "Zapatillas negras 3 lineas",
+  "price": 70,
+  "image": "/uploads/imagen_2025-07-03_182310573.png",
+  "gender": "hombre",
+  "style": "casual",
+  "category": "calzado-hombres"
+}
