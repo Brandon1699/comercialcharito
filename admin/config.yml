@@ -14,8 +14,9 @@ collections:
     slug: "{{slug}}"
     extension: "json"
     fields:
-      - { label: "Título",        name: "title",       widget: "string" }
-      - { label: "Precio (S/.)",  name: "price",       widget: "number" }
-      - { label: "Imagen",        name: "image",       widget: "image" }
-      - { label: "Descripción",   name: "description", widget: "text" }
-      - { label: "WhatsApp Link", name: "whatsapp",    widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Precio (S/.)", name: "price", widget: "number", value_type: "float", step: 0.01 }
+      - { label: "Imagen", name: "image", widget: "image" }
+      - { label: "Categoría", name: "category", widget: "select", 
+          options: ["Ropa Mujer", "Ropa Hombre", "Ropa Niños", "Calzado", "Accesorios"] }
+      - { label: "Destacado", name: "featured", widget: "boolean", default: false }
