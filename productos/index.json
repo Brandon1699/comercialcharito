@@ -48,15 +48,5 @@
     "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png",
     "description": "Zapatillas bonitas",
     "whatsapp": "https://api.whatsapp.com/send/?phone=51940246849&text&type=phone_number&app_absent=0"
-  },
-  {
-    "featured": true,
-    "code": "{{now | date('YmdHis')}}",
-    "title": "Zapatillas negras 3 lineas",
-    "price": 70,
-    "image": "/uploads/imagen_2025-07-03_182310573.png",
-    "gender": "hombre",
-    "style": "casual",
-    "category": "calzado-hombres"
   }
 ]
