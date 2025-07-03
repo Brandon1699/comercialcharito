@@ -130,6 +130,16 @@
             min-width: 150px;
         }
 
+        .social-icons a {
+            color: #333;
+            font-size: 24px;
+            transition: color 0.2s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--rosa);
+        }
+
         /* PRODUCTOS */
         .products-grid {
             display: grid;
@@ -139,16 +149,14 @@
         
         .product-card {
             background: var(--blanco);
-            border-radius: 8px;
+            border-radius: 6px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
             position: relative;
         }
         
         .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
         .product-image {
@@ -158,12 +166,13 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            position: relative;
         }
         
         .product-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             transition: transform 0.3s ease;
         }
         
@@ -172,21 +181,21 @@
         }
         
         .product-details {
-            padding: 1.5rem;
+            padding: 1.2rem;
             text-align: center;
         }
         
         .product-title {
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
             color: var(--azul);
         }
         
         .product-price {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--rosa);
-            margin: 1rem 0;
+            margin: 0.8rem 0;
         }
         
         .whatsapp-btn {
@@ -203,7 +212,7 @@
             justify-content: center;
             gap: 8px;
             transition: background 0.3s;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
         
         .whatsapp-btn:hover {
@@ -213,9 +222,9 @@
         /* CATEGORÍAS Y DESTACADOS */
         .product-category {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--azul);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
             text-transform: uppercase;
             font-weight: 600;
         }
@@ -228,10 +237,9 @@
             color: #000;
             padding: 3px 10px;
             border-radius: 12px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: bold;
             z-index: 2;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         /* CONTROLES DEL CATÁLOGO */
@@ -300,27 +308,52 @@
             color: white;
             border-color: var(--azul);
         }
-        
-        .view-all-container {
-            text-align: center;
-            margin-top: 3rem;
+
+        /* ESTILOS PARA SELECCIÓN MÚLTIPLE */
+        .product-selector {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 2;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
         }
-        
-        .view-all-btn {
+
+        .multi-select-actions {
+            text-align: center;
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .multi-select-actions.show {
+            display: block;
+        }
+
+        .send-selected-btn {
             background: var(--rosa);
             color: white;
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
             font-weight: 600;
-            transition: all 0.3s;
-            display: inline-block;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-        
-        .view-all-btn:hover {
-            background: #d3164d;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(236, 26, 89, 0.3);
+
+        .send-selected-btn:hover {
+            background: #c71545;
+        }
+
+        .selected-count {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 0.9rem;
+            color: var(--azul);
         }
 
         /* FOOTER */
@@ -587,8 +620,11 @@
             
             <div class="products-grid" id="catalog-products"></div>
             
-            <div class="view-all-container">
-                <a href="index.html#destacados" class="view-all-btn">Ver productos destacados</a>
+            <div class="multi-select-actions" id="multiSelectActions">
+                <button class="send-selected-btn" id="sendSelectedBtn">
+                    <i class="fas fa-paper-plane"></i> Pedir seleccionados por WhatsApp
+                    <span class="selected-count" id="selectedCount">0</span>
+                </button>
             </div>
         </section>
     </div>
@@ -638,9 +674,13 @@
             const categoryFilter = document.getElementById('category-filter');
             const searchBox = document.getElementById('search-box');
             const sortButtons = document.querySelectorAll('.sort-btn');
+            const multiSelectActions = document.getElementById('multiSelectActions');
+            const sendSelectedBtn = document.getElementById('sendSelectedBtn');
+            const selectedCount = document.getElementById('selectedCount');
             
             let allProducts = [];
             let currentSort = 'featured';
+            let selectedProducts = [];
             
             // Cargar productos
             fetch('/productos/index.json')
@@ -710,6 +750,7 @@
                     card.className = `product-card ${prod.featured ? 'featured' : ''}`;
                     card.innerHTML = `
                         ${prod.featured ? '<div class="featured-badge">⭐ Destacado</div>' : ''}
+                        <input type="checkbox" class="product-selector" data-product="${prod.title} - S/${prod.price.toFixed(2)}">
                         <div class="product-image">
                             <img src="${prod.image}" alt="${prod.title}" loading="lazy">
                         </div>
@@ -724,6 +765,28 @@
                         </div>
                     `;
                     catalogGrid.appendChild(card);
+                });
+
+                // Configurar eventos para selección múltiple
+                document.querySelectorAll('.product-selector').forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        const productInfo = this.getAttribute('data-product');
+                        
+                        if(this.checked) {
+                            selectedProducts.push(productInfo);
+                        } else {
+                            selectedProducts = selectedProducts.filter(p => p !== productInfo);
+                        }
+                        
+                        // Actualizar UI
+                        selectedCount.textContent = selectedProducts.length;
+                        
+                        if(selectedProducts.length > 0) {
+                            multiSelectActions.classList.add('show');
+                        } else {
+                            multiSelectActions.classList.remove('show');
+                        }
+                    });
                 });
             }
             
@@ -745,6 +808,17 @@
                     currentSort = this.dataset.sort;
                     renderProducts(allProducts);
                 });
+            });
+
+            // Configurar botón para enviar selección
+            sendSelectedBtn.addEventListener('click', function() {
+                if(selectedProducts.length === 0) return;
+                
+                let message = '¡Hola Comercial Charito! Estoy interesado/a en los siguientes productos:\n\n';
+                message += selectedProducts.map((p, i) => `${i+1}. ${p}`).join('\n');
+                message += '\n\n¿Podrían darme más información?';
+                
+                enviarWhatsApp(message);
             });
         });
     </script>
