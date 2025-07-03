@@ -22,11 +22,22 @@ jobs:
           fetch-depth: 0
 
       # 3) Generar index.json
-      - name: Mostrar archivos .json detectados
+      - name: Generar index.json
         run: |
           cd productos
-          echo "Archivos en /productos:"
-          ls -l *.json || echo "No hay archivos"
+          echo "Listando archivos en productos/:"
+          ls -l
+          echo "---"
+      
+          files=$(ls *.json | grep -v index.json || true)
+          echo "Archivos seleccionados para combinar: $files"
+      
+          if [ -n "$files" ]; then
+            jq -s '.' $files > index.json
+            echo "✅ index.json creado con contenido de: $files"
+          else
+            echo "⚠️ No se encontraron archivos JSON para combinar."
+          fi
 
       - name: Mostrar archivos .json detectados
         run: |
