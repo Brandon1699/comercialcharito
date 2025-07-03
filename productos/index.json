@@ -1,55 +1,5 @@
 [
   {
-    "title": "polo adidas",
-    "price": 15,
-    "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png",
-    "category": "polos-hombres",
-    "featured": true,
-    "gender": "hombre",
-    "style": "deportivo"
-  },
-  {
-    "featured": true,
-    "title": "asdasd",
-    "price": 5,
-    "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde-1-1-.png",
-    "category": "Ropa Hombre"
-  },
-  {
-    "title": "test65",
-    "price": 1,
-    "description": "test",
-    "whatsapp": "test",
-    "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png",
-    "featured": true,
-    "category": "Ropa Hombre"
-  },
-  {
-    "title": "test2",
-    "price": 2,
-    "description": "test2",
-    "whatsapp": "test2",
-    "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png"
-  },
-  {
-    "gender": "hombre",
-    "price": 200,
-    "featured": false,
-    "style": "casual",
-    "whatsapp": "https://api.whatsapp.com/send/?phone=51940246849&text&type=phone_number&app_absent=0",
-    "title": "Zapatillas adidas",
-    "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png",
-    "description": "prueba",
-    "category": "calzado-hombres"
-  },
-  {
-    "title": "Zapatillas de cars",
-    "price": 20,
-    "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png",
-    "description": "Zapatillas bonitas",
-    "whatsapp": "https://api.whatsapp.com/send/?phone=51940246849&text&type=phone_number&app_absent=0"
-  },
-  {
     "featured": true,
     "code": "PROD-20250703-183057",
     "title": "Zapatillas negras 3 lineas",
