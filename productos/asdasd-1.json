@@ -2,6 +2,8 @@
   "title": "polo adidas",
   "price": 15,
   "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png",
-  "category": "Ropa Hombre",
-  "featured": true
+  "category": "polos-hombres",
+  "featured": true,
+  "gender": "hombre",
+  "style": "deportivo"
 }
