@@ -150,7 +150,8 @@
         }
 
         .nav-menu a:hover {
-            color: var(--rosa);
+            color: var(--rosa); /* Color al hacer hover */
+            background: transparent;
         }
 
         .social-icons {
@@ -238,16 +239,16 @@
         }
         
         .product-title {
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
+                    margin-bottom: 0.5rem;
+            font-size: 0.9rem; /* Reducido de 1rem */
             color: var(--azul);
         }
         
         .product-price {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 700;
             color: var(--rosa);
-            margin: 0.8rem 0;
+            margin: 0.5rem 0;
         }
         
         .whatsapp-btn {
@@ -563,24 +564,25 @@
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: row;
-                padding: 12px 15px;
+                padding: 9px 30px;
             }
 
             .menu-toggle {
-                display: flex;
+                display: none;
             }
             
             .nav-menu {
-                display: none;
-                position: fixed;
-                top: 60px;
-                left: 0;
-                width: 100%;
-                background: var(--blanco);
-                flex-direction: column;
-                gap: 0;
-                padding: 15px 0;
-                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                display: flex;
+                position: static;
+                flex-direction: row;
+                background: transparent;
+                box-shadow: none;
+                width: auto;
+                gap: 25px;
+                padding: 0;
+                margin: 0 auto;
+                justify-content: center;
+                flex: 2;
             }
             
             .nav-menu.active {
@@ -588,20 +590,41 @@
             }
 
             .nav-menu li {
-                width: 100%;
-                text-align: center;
-                border-bottom: 1px solid var(--gris);
+                width: auto;
+                border-bottom: none;
             }
             
             .nav-menu a {
-                padding: 12px 0;
-                display: block;
+                padding: 5px 0;
+                color: var(--texto); /* Color de texto normal */
+            }
+
+            .nav-menu a {
+                padding: 10px 0; /* Ajustar espaciado */
             }
 
             .desktop-social-icons {
-                display: none;
+                display: flex;
+                gap: 15px;
+                flex: 1;
+                justify-content: flex-end;
+                min-width: 150px;
             }
 
+            .desktop-social-icons a {
+                color: var(--texto); /* Color original de los iconos */
+                font-size: 24px;
+                transition: color 0.2s ease;
+            }
+
+            .desktop-social-icons a:hover {
+                color: var(--rosa); /* Color al hacer hover */
+            }
+
+            .mobile-social-icons {
+                display: none !important;
+            }
+            
             .mobile-social-icons.active {
                 display: flex;
             }
@@ -624,6 +647,22 @@
 
             .product-image {
                 height: 160px;
+            }
+
+            .product-title {
+                font-size: 0.85rem; /* Más pequeño en móvil */
+            }
+            
+            .product-price {
+                font-size: 0.9rem; /* Más pequeño en móvil */
+            }
+            
+            .product-code, .product-category {
+                font-size: 0.7rem; /* Reducir tamaño de código y categoría */
+            }
+            
+            .whatsapp-btn {
+                font-size: 0.8rem; /* Reducir texto del botón */
             }
             
             .catalog-controls {
@@ -700,7 +739,6 @@
     
         <ul class="nav-menu">
             <li><a href="index.html">Inicio</a></li>
-            <li><a href="#productos">Catálogo</a></li>
             <li><a href="https://wa.me/51940243849">Contacto</a></li>
             <li><a href="#transmisiones">Transmisiones</a></li>
             <div class="mobile-social-icons">
