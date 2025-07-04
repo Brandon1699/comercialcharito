@@ -2,9 +2,27 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Comercial Charito - Moda con Estilo</title>
+    <meta name="description" content="Catálogo digital de Comercial Charito. Moda con estilo al mejor precio. Envíos a todo Lima y provincias.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
     <!-- Boxicons para iconos -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <!-- Montserrat desde Google Fonts -->
@@ -24,93 +42,177 @@
             --footer-divider: #555;
         }
         
-        /* NAVIGATION BAR */
+        /* ESTILOS GENERALES */
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--fondo);
+            color: var(--texto);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* NAVIGATION BAR - OPTIMIZADO PARA MÓVIL */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background-color: var(--blanco);
-            padding: 9px 30px;
+            padding: 12px 15px;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             flex: 1;
-            min-width: 200px;
-            justify-content: flex-start;
+            min-width: auto;
         }
 
         .logo img {
-            height: 40px;
+            height: 32px;
             width: auto;
         }
 
         .logo-text {
             font-weight: bold;
             color: var(--rosa);
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-family: 'Montserrat', sans-serif;
+            white-space: nowrap;
         }
 
         .nav-menu {
+            display: none;
             list-style: none;
+            margin: 0;
+            padding: 15px 0;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            background: var(--blanco);
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            z-index: 99;
+        }
+
+        .nav-menu.active {
             display: flex;
-            gap: 25px;
-            margin: 0 auto;
-            padding: 0;
-            flex: 2;
-            justify-content: center;
+        }
+
+        .nav-menu li {
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid var(--gris);
         }
 
         .nav-menu a {
             text-decoration: none;
-            color: #333;
+            color: var(--texto);
             font-weight: 500;
-            transition: color 0.2s ease;
-            font-size: 18px;
+            transition: all 0.2s ease;
+            font-size: 16px;
+            padding: 12px 0;
+            display: block;
+            width: 100%;
         }
 
         .nav-menu a:hover {
             color: var(--rosa);
+            background: var(--gris);
         }
 
-        .social-icons {
+        /* Menú hamburguesa para móvil */
+        .menu-toggle {
             display: flex;
-            gap: 15px;
-            flex: 1;
-            justify-content: flex-end;
-            min-width: 150px;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            margin-right: 15px;
+            cursor: pointer;
+            z-index: 100;
         }
 
-        .social-icons a {
-            color: #333;
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--texto);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Social icons solo en menú móvil */
+        .mobile-social-icons {
+            display: none;
+            justify-content: center;
+            gap: 20px;
+            padding: 15px 0;
+            width: 100%;
+            border-top: 1px solid var(--gris);    
+            margin: 0 auto; /* Añade esta línea */
+            text-align: center; /* Añade esta línea */
+        }
+
+        .mobile-social-icons.active {
+            display: flex;
+        }
+
+        .mobile-social-icons a {
+            color: var(--texto);
             font-size: 24px;
             transition: color 0.2s ease;
         }
 
-        .social-icons a:hover {
+        .mobile-social-icons a:hover {
             color: var(--rosa);
         }
 
-        /* CARRUSEL DE BANNERS */
+        /* Social icons en desktop */
+        .desktop-social-icons {
+            display: none;
+        }
+
+        /* CARRUSEL DE BANNERS - CORREGIDO */
         .banner-carousel {
             width: 100%;
             position: relative;
             overflow: hidden;
-            height: 300px;
+            height: 200px;
             margin: 0 auto;
-            background: transparent;
+            background: var(--blanco);
         }
         
         .banner-wrapper {
             display: flex;
-            transition: transform 0.8s ease-in-out;
+            transition: transform 0.5s ease-in-out;
             height: 100%;
+            width: 100%;
         }
         
         .banner-slide {
@@ -119,48 +221,66 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
         
         .banner-slide img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
             display: block;
+            position: absolute;
         }
 
-        /* ESTILOS GENERALES */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: var(--fondo);
-            color: var(--texto);
-            line-height: 1.6;
+        /* Indicadores del carrusel */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            z-index: 10;
         }
-        
+
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: var(--rosa);
+            transform: scale(1.2);
+        }
+
+        /* CONTENEDOR PRINCIPAL */
         .main-container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 10px;
         }
         
         .section {
-            padding: 3rem 0;
+            padding: 1.5rem 0;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
+            padding: 0 10px;
         }
         
         .section-title h2 {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             color: var(--azul);
             position: relative;
-            padding-bottom: 15px;
-            margin-bottom: 15px;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
         }
         
         .section-title h2::after {
@@ -169,19 +289,173 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
+            width: 60px;
+            height: 3px;
             background: var(--rosa);
             border-radius: 2px;
         }
         
-        /* PRODUCTOS - NUEVO DISEÑO */
+        .section-title p {
+            font-size: 0.95rem;
+            color: var(--texto);
+            margin-top: 0.5rem;
+        }
+        
+        /* PRODUCTOS - OPTIMIZADO PARA MÓVIL */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            padding: 0 5px;
+        }
+
+        .product-card {
+            background: var(--blanco);
+            border-radius: 6px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .product-image {
+            height: 160px;
+            background: var(--blanco);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-details {
+            padding: 0.8rem;
+            text-align: center;
+        }
+
+        .product-title {
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+            color: var(--azul);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.8em;
+            line-height: 1.4em;
+        }
+
+        .product-price {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--rosa);
+            margin: 0.5rem 0;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: #fff;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            width: 100%;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128C7E;
+        }
+
+        /* ESTILOS PARA SELECCIÓN MÚLTIPLE */
+        .product-selector {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            z-index: 2;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--rosa);
+        }
+
+        .multi-select-actions {
+            text-align: center;
+            margin: 1.5rem 10px 0;
+            display: none;
+            position: sticky;
+            bottom: 20px;
+            z-index: 50;
+        }
+
+        .multi-select-actions.show {
+            display: block;
+        }
+
+        .send-selected-btn {
+            background: var(--rosa);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            max-width: 320px;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(236, 26, 89, 0.3);
+        }
+
+        .send-selected-btn:hover {
+            background: #c71545;
+        }
+
+        .selected-count {
+            display: inline-block;
+            margin-left: 8px;
+            font-size: 0.85rem;
+            color: var(--blanco);
+            background: rgba(0,0,0,0.2);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        /* ESTILOS NUEVOS PARA CATEGORÍAS Y DESTACADOS */
+        .product-category {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--azul);
+            margin-bottom: 0.2rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
 
         .product-code {
             display: block;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #666;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
             font-family: 'Courier New', monospace;
             background: #f5f5f5;
             padding: 2px 5px;
@@ -194,198 +468,72 @@
             color: #000;
             font-weight: 600;
         }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .product-card {
-            background: var(--blanco);
-            border-radius: 6px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .product-image {
-            height: 200px;
-            background: var(--gris);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .product-image img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover .product-image img {
-            transform: scale(1.05);
-        }
-
-        .product-details {
-            padding: 1.2rem;
-            text-align: center;
-        }
-
-        .product-title {
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-            color: var(--azul);
-        }
-
-        .product-price {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--rosa);
-            margin: 0.8rem 0;
-        }
-
-        .whatsapp-btn {
-            background: #25D366;
-            color: #fff;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            width: 100%;
-            transition: background 0.2s;
-        }
-
-        .whatsapp-btn:hover {
-            background: #128C7E;
-        }
-
-        /* ESTILOS PARA SELECCIÓN MÚLTIPLE */
-        .product-selector {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 2;
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-
-        .multi-select-actions {
-            text-align: center;
-            margin-top: 1.5rem;
-            display: none;
-        }
-
-        .multi-select-actions.show {
-            display: block;
-        }
-
-        .send-selected-btn {
-            background: var(--rosa);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s ease;
-            font-size: 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .send-selected-btn:hover {
-            background: #c71545;
-        }
-
-        .selected-count {
-            display: inline-block;
-            margin-left: 10px;
-            font-size: 0.9rem;
-            color: var(--azul);
-        }
-
-        /* ESTILOS NUEVOS PARA CATEGORÍAS Y DESTACADOS */
-        .product-category {
-            display: block;
-            font-size: 0.75rem;
-            color: var(--azul);
-            margin-bottom: 0.3rem;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
 
         .featured-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 8px;
+            right: 8px;
             background: var(--amarillo);
             color: #000;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.6rem;
             font-weight: bold;
             z-index: 2;
         }
 
         .view-all-container {
             text-align: center;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
+            padding: 0 10px;
         }
 
         .view-all-btn {
             background: var(--azul);
             color: white;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 4px;
             text-decoration: none;
             font-weight: 500;
             transition: all 0.2s;
+            font-size: 0.9rem;
+            display: inline-block;
         }
 
         .view-all-btn:hover {
             background: #0f2d5f;
         }
 
-        /* SECCIÓN TRANSMISIONES */
+        /* SECCIÓN TRANSMISIONES - OPTIMIZADA PARA MÓVIL */
         .transmisiones-content {
             display: flex;
-            flex-wrap: wrap;
-            align-items: flex-start;
-            gap: 40px;
+            flex-direction: column;
+            gap: 20px;
+            padding: 0 10px;
         }
         
         .tiktok-video-container {
-            max-width: 500px;
-            margin: 0;
-            border-radius: 12px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 8px;
             overflow: hidden;
             box-shadow: none;
             position: relative;
             background: transparent;
-            flex: 1;
-            min-width: 300px;
         }
         
         .transmisiones-info {
-            flex: 1;
-            min-width: 300px;
+            width: 100%;
         }
         
         .proximas-transmisiones {
-            margin-top: 2rem;
+            margin-top: 1.5rem;
         }
         
         .proximas-transmisiones h4 {
             color: var(--rosa);
-            font-size: 1.3rem;
-            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
         }
         
         .transmisiones-list {
@@ -394,45 +542,46 @@
         }
         
         .transmisiones-list li {
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 1.1rem;
+            gap: 10px;
+            font-size: 0.95rem;
         }
         
         .transmisiones-list i {
             color: var(--azul);
-            font-size: 1.2rem;
-            min-width: 25px;
+            font-size: 1rem;
+            min-width: 20px;
         }
         
         .social-buttons {
             display: flex;
-            gap: 15px;
-            margin-top: 2.5rem;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 1.5rem;
         }
         
         /* BOTONES */
         .btn {
-            display: inline-block;
-            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
             border-radius: 6px;
-            font-weight: 700;
+            font-weight: 600;
             text-decoration: none;
             margin: 0;
             transition: all 0.2s ease;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             border: 2px solid transparent;
+            text-align: center;
+            gap: 8px;
         }
         
         .btn-tiktok {
             background: #000;
             color: white;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
         }
         
         .btn-tiktok:hover {
@@ -444,9 +593,6 @@
         .btn-facebook {
             background: #1877F2;
             color: white;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
         }
         
         .btn-facebook:hover {
@@ -455,47 +601,49 @@
             border-color: #1877F2;
         }
         
-        /* FOOTER */
+        /* FOOTER - OPTIMIZADO PARA MÓVIL */
         footer {
             background-color: var(--footer-bg);
-            padding: 40px 60px;
+            padding: 30px 20px;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            margin-top: 4rem;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 3rem;
         }
 
         .footer-left {
-            flex: 1;
             display: flex;
             justify-content: center;
+            margin-bottom: 20px;
         }
 
         .footer-left img {
-            height: 108px;
+            height: 80px;
             width: auto;
         }
 
         .divider {
-            width: 1px;
+            width: 80%;
+            height: 1px;
             background-color: var(--footer-divider);
-            margin: 0 40px;
-            height: 120px;
+            margin: 15px 0;
         }
 
         .footer-center {
-            flex: 2;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
         }
 
         .footer-center a {
             color: var(--footer-text);
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: color 0.2s ease;
+            padding: 5px 0;
         }
 
         .footer-center a:hover {
@@ -503,11 +651,11 @@
         }
 
         .footer-right {
-            flex: 1;
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
+            align-items: center;
             gap: 15px;
+            width: 100%;
         }
 
         .footer-social-icons {
@@ -517,7 +665,7 @@
 
         .footer-social-icons a {
             color: var(--footer-text);
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             transition: color 0.2s ease;
         }
 
@@ -527,9 +675,11 @@
 
         .location-text {
             color: var(--footer-text);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-decoration: none;
             transition: color 0.2s ease;
+            text-align: center;
+            line-height: 1.4;
         }
 
         .location-text:hover {
@@ -538,148 +688,248 @@
 
         .copyright {
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--footer-text);
-            padding: 20px 0;
+            padding: 15px 20px;
             border-top: 1px solid var(--footer-divider);
             background-color: var(--footer-bg);
+            width: 100%;
         }
 
         /* WHATSAPP FLOTANTE */
         .whatsapp-float {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 20px;
+            right: 20px;
             background: #25D366;
             color: white;
-            width: 65px;
-            height: 65px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.7rem;
             z-index: 99;
-            transition: transform 0.2s ease;
+            transition: all 0.2s ease;
             text-decoration: none !important;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
         
         .whatsapp-float:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
             text-decoration: none;
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                padding: 8px 15px;
-                gap: 12px;
-            }
-            
-            .nav-menu {
-                order: 3;
-                width: 100%;
-                justify-content: center;
-                margin-top: 8px;
-                gap: 15px;
-                flex: none;
-            }
-            
-            .nav-menu a {
-                font-size: 16px;
-            }
-            
-            .social-icons {
-                order: 2;
-                gap: 13.5px;
-                justify-content: center;
-                flex: none;
-                width: 100%;
-            }
-            
-            .section {
-                padding: 2rem 0;
+        /* MEJORAS PARA TABLETS */
+        @media (min-width: 480px) {
+            .banner-carousel {
+                height: 250px;
             }
             
             .products-grid {
-                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                grid-template-columns: repeat(2, 1fr);
                 gap: 1rem;
             }
             
-            .tiktok-video-container {
-                max-width: 100%;
-                margin: 0 auto 2rem;
+            .product-image {
+                height: 180px;
+            }
+        }
+
+        /* VERSIÓN ESCRITORIO */
+        @media (min-width: 768px) {
+            .navbar {
+                flex-direction: row;
+                padding: 9px 30px;
+                gap: 0;
             }
             
-            .btn {
-                display: block;
-                width: 100%;
-                margin: 12px 0;
-                text-align: center;
+            .menu-toggle {
+                display: none;
             }
             
-            .social-buttons {
-                flex-direction: column;
+            .nav-menu {
+                display: flex;
+                position: static;
+                flex-direction: row;
+                background: transparent;
+                box-shadow: none;
+                width: auto;
+                gap: 25px;
+                padding: 0;
+                margin: 0 auto;
+                justify-content: center;
+                flex: 2;
             }
             
-            .transmisiones-content {
-                flex-direction: column;
+            .nav-menu li {
+                width: auto;
+                border-bottom: none;
+            }
+            
+            .nav-menu a {
+                padding: 5px 0;
+                color: var(--texto);
+            }
+            
+            .nav-menu a:hover {
+                background: transparent;
+                color: var(--rosa);
+            }
+            
+            .mobile-social-icons {
+                display: none !important;
+            }
+            
+            .desktop-social-icons {
+                display: flex;
+                gap: 15px;
+                flex: 1;
+                justify-content: flex-end;
+                min-width: 150px;
+            }
+            
+            .desktop-social-icons a {
+                font-size: 24px;
+                color: var(--texto);
+            }
+
+            .desktop-social-icons a:hover {
+                color: var(--rosa);
+            }
+            
+            .logo {
+                flex: 1;
+                min-width: 200px;
+            }
+            
+            .logo img {
+                height: 40px;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
             }
             
             .banner-carousel {
+                height: 300px;
+            }
+
+            .banner-slide img {
+                object-fit: cover;
+            }
+            
+            .main-container {
+                max-width: 1200px;
+                padding: 0 15px;
+            }
+            
+            .section {
+                padding: 2.5rem 0;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 1.5rem;
+                padding: 0;
+            }
+            
+            .product-image {
                 height: 200px;
             }
             
+            .transmisiones-content {
+                flex-direction: row;
+                padding: 0;
+            }
+            
+            .tiktok-video-container {
+                max-width: 500px;
+                margin: 0;
+                flex: 1;
+                min-width: 300px;
+            }
+            
+            .transmisiones-info {
+                flex: 1;
+                min-width: 300px;
+            }
+            
+            .social-buttons {
+                flex-direction: row;
+            }
+            
             footer {
-                flex-direction: column;
-                align-items: center;
-                padding: 30px 20px;
-                text-align: center;
+                flex-direction: row;
+                align-items: flex-start;
+                padding: 40px 60px;
+                text-align: left;
             }
 
-            .divider {
-                display: none;
-            }
-
-            .footer-left, 
-            .footer-center, 
-            .footer-right {
-                align-items: center;
-                text-align: center;
-                width: 100%;
+            .footer-left {
+                justify-content: flex-start;
+                flex: 1;
+                margin-bottom: 0;
             }
 
             .footer-left img {
-                height: 80px;
+                height: 108px;
+            }
+
+            .divider {
+                width: 1px;
+                height: 120px;
+                margin: 0 40px;
+            }
+
+            .footer-center {
+                align-items: flex-start;
+                flex: 2;
+                margin-bottom: 0;
             }
 
             .footer-right {
-                margin-top: 20px;
-                align-items: center;
+                align-items: flex-end;
+                flex: 1;
             }
-
-            .footer-social-icons {
-                justify-content: center;
+            
+            .multi-select-actions {
+                position: static;
+            }
+            
+            .send-selected-btn {
+                width: auto;
             }
         }
     </style>
 </head>
 <body>
-    <!-- NAVIGATION BAR -->
+    <!-- NAVIGATION BAR OPTIMIZADA -->
     <nav class="navbar">
         <div class="logo">
             <img src="logotipo.png" alt="Logo Comercial Charito" />
             <span class="logo-text">COMERCIAL CHARITO</span>
         </div>
 
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
         <ul class="nav-menu">
             <li><a href="#productos">Catálogo</a></li>
             <li><a href="https://wa.me/51940243849">Contacto</a></li>
             <li><a href="#transmisiones">Transmisiones</a></li>
+            <div class="mobile-social-icons">
+                <a href="https://www.facebook.com/CharitoYsusNovedades/?locale=es_LA" target="_blank"><i class='bx bxl-facebook-circle'></i></a>
+                <a href="https://www.tiktok.com/@c.charito?is_from_webapp=1&sender_device=pc" target="_blank"><i class='bx bxl-tiktok'></i></a>
+                <a href="https://wa.me/51940243849"><i class='bx bxl-whatsapp'></i></a>
+            </div>
         </ul>
 
-        <div class="social-icons">
+        <div class="desktop-social-icons">
             <a href="https://www.facebook.com/CharitoYsusNovedades/?locale=es_LA" target="_blank"><i class='bx bxl-facebook-circle'></i></a>
             <a href="https://www.tiktok.com/@c.charito?is_from_webapp=1&sender_device=pc" target="_blank"><i class='bx bxl-tiktok'></i></a>
             <a href="https://wa.me/51940243849"><i class='bx bxl-whatsapp'></i></a>
@@ -688,7 +938,7 @@
 
     <!-- Contenedor principal -->
     <div class="main-container">
-        <!-- Carrusel de Banners -->
+        <!-- Carrusel de Banners con indicadores -->
         <div class="banner-carousel">
             <div class="banner-wrapper">
                 <div class="banner-slide">
@@ -700,6 +950,11 @@
                 <div class="banner-slide">
                     <img src="bannerc.png" alt="Banner promocional Comercial Charito">
                 </div>
+            </div>
+            <div class="carousel-indicators">
+                <div class="indicator active" data-slide="0"></div>
+                <div class="indicator" data-slide="1"></div>
+                <div class="indicator" data-slide="2"></div>
             </div>
         </div>
 
@@ -714,7 +969,7 @@
 
             <div class="multi-select-actions" id="multiSelectActions">
                 <button class="send-selected-btn" id="sendSelectedBtn">
-                    <i class="fas fa-paper-plane"></i> Pedir seleccionados por WhatsApp
+                    <i class="fas fa-paper-plane"></i> Pedir seleccionados
                     <span class="selected-count" id="selectedCount">0</span>
                 </button>
             </div>
@@ -733,7 +988,6 @@
             <div class="transmisiones-content">
                 <!-- Contenedor para el video de TikTok -->
                 <div class="tiktok-video-container">
-                    <!-- Bloque de TikTok proporcionado -->
                     <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@c.charito/video/7279466252949638406" 
                         data-video-id="7279466252949638406">
                         <section> 
@@ -756,7 +1010,7 @@
                                 De lunes a sábado a las 12:00 AM
                             </li>
                         </ul>
-                        <p style="margin-top: 1.5rem; font-size: 1.1rem;">
+                        <p style="margin-top: 1.2rem; font-size: 0.95rem;">
                             Síguenos en nuestras redes sociales para enterarte de todas nuestras transmisiones en vivo y novedades.
                         </p>
                     </div>
@@ -812,10 +1066,36 @@
     <script>
         // Función que abre WhatsApp con texto prellenado
         function enviarWhatsApp(productText) {
-            const telefono = '51940246849';
+            const telefono = '51940243849'; // Número corregido
             const url = 'https://wa.me/' + telefono + '?text=' + encodeURIComponent(productText);
             window.open(url, '_blank');
         }
+
+        // Menú hamburguesa para móvil
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        const mobileSocialIcons = document.querySelector('.mobile-social-icons');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            // Mostrar/ocultar íconos sociales en móvil
+            if(navMenu.classList.contains('active')) {
+                mobileSocialIcons.classList.add('active');
+            } else {
+                mobileSocialIcons.classList.remove('active');
+            }
+        });
+
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+                mobileSocialIcons.classList.remove('active');
+            });
+        });
 
         // Al cargar la página, pide el JSON y crea las cards
         document.addEventListener('DOMContentLoaded', () => {
@@ -853,7 +1133,7 @@
                                     <div class="product-price">S/${prod.price.toFixed(2)}</div>
                                     <button class="whatsapp-btn"
                                         onclick="enviarWhatsApp('${prod.title} (Código: ${prod.code || 'N/A'}) - S/${prod.price.toFixed(2)}')">
-                                        <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+                                        <i class="fab fa-whatsapp"></i> Pedir
                                     </button>
                                 </div>
                             `;
@@ -882,7 +1162,10 @@
                         });
                     });
                 })
-                .catch(err => console.error('Error cargando productos destacados:', err));
+                .catch(err => {
+                    console.error('Error cargando productos destacados:', err);
+                    featuredGrid.innerHTML = '<p class="no-featured">No se pudieron cargar los productos en este momento. Por favor intenta más tarde.</p>';
+                });
 
             // Configurar botón para enviar selección
             sendSelectedBtn.addEventListener('click', function() {
@@ -896,11 +1179,17 @@
             });
         });
 
-        // Carrusel de banners
+        // Carrusel de banners con indicadores
         let currentSlide = 0;
         const bannerWrapper = document.querySelector('.banner-wrapper');
         const slides = document.querySelectorAll('.banner-slide');
+        const indicators = document.querySelectorAll('.indicator');
         const totalSlides = slides.length;
+        
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
         
         function nextSlide() {
             currentSlide = (currentSlide + 1) % totalSlides;
@@ -910,10 +1199,33 @@
         function updateCarousel() {
             const offset = -currentSlide * 100;
             bannerWrapper.style.transform = `translateX(${offset}%)`;
+            
+            // Actualizar indicadores
+            indicators.forEach((indicator, index) => {
+                if(index === currentSlide) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
         }
         
+        // Eventos para los indicadores
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => goToSlide(index));
+        });
+        
         // Cambiar slide cada 5 segundos
-        setInterval(nextSlide, 5000);
+        let carouselInterval = setInterval(nextSlide, 5000);
+        
+        // Pausar carrusel cuando el usuario interactúa
+        bannerWrapper.addEventListener('mouseenter', () => clearInterval(carouselInterval));
+        bannerWrapper.addEventListener('touchstart', () => clearInterval(carouselInterval));
+        
+        // Reanudar carrusel
+        bannerWrapper.addEventListener('mouseleave', () => {
+            carouselInterval = setInterval(nextSlide, 5000);
+        });
         
         // Iniciar carrusel
         updateCarousel();
