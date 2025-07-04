@@ -176,6 +176,25 @@
         }
         
         /* PRODUCTOS - NUEVO DISEÑO */
+
+        .product-code {
+            display: block;
+            font-size: 0.75rem;
+            color: #666;
+            margin-bottom: 0.3rem;
+            font-family: 'Courier New', monospace;
+            background: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+        
+        .featured .product-code {
+            background: var(--amarillo);
+            color: #000;
+            font-weight: 600;
+        }
+        
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -793,7 +812,7 @@
     <script>
         // Función que abre WhatsApp con texto prellenado
         function enviarWhatsApp(productText) {
-            const telefono = '51940243849';
+            const telefono = '51940246849';
             const url = 'https://wa.me/' + telefono + '?text=' + encodeURIComponent(productText);
             window.open(url, '_blank');
         }
@@ -819,26 +838,27 @@
                     }
                     
                     featuredProducts.forEach(prod => {
-                        const card = document.createElement('div');
-                        card.className = 'product-card featured';
-                        card.innerHTML = `
-                            <div class="featured-badge">⭐ Destacado</div>
-                            <input type="checkbox" class="product-selector" data-product="${prod.title} - S/${prod.price.toFixed(2)}">
-                            <div class="product-image">
-                                <img src="${prod.image}" alt="${prod.title}" loading="lazy">
-                            </div>
-                            <div class="product-details">
-                                <span class="product-category">${prod.category || 'General'}</span>
-                                <h3 class="product-title">${prod.title}</h3>
-                                <div class="product-price">S/${prod.price.toFixed(2)}</div>
-                                <button class="whatsapp-btn"
-                                    onclick="enviarWhatsApp('${prod.title} - S/${prod.price.toFixed(2)}')">
-                                    <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
-                                </button>
-                            </div>
-                        `;
-                        featuredGrid.appendChild(card);
-                    });
+                            const card = document.createElement('div');
+                            card.className = 'product-card featured';
+                            card.innerHTML = `
+                                <div class="featured-badge">⭐ Destacado</div>
+                                <input type="checkbox" class="product-selector" data-product="${prod.title} (Código: ${prod.code || 'N/A'}) - S/${prod.price.toFixed(2)}">
+                                <div class="product-image">
+                                    <img src="${prod.image}" alt="${prod.title}" loading="lazy">
+                                </div>
+                                <div class="product-details">
+                                    <span class="product-code">Código: ${prod.code || 'N/A'}</span>
+                                    <span class="product-category">${prod.category || 'General'}</span>
+                                    <h3 class="product-title">${prod.title}</h3>
+                                    <div class="product-price">S/${prod.price.toFixed(2)}</div>
+                                    <button class="whatsapp-btn"
+                                        onclick="enviarWhatsApp('${prod.title} (Código: ${prod.code || 'N/A'}) - S/${prod.price.toFixed(2)}')">
+                                        <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+                                    </button>
+                                </div>
+                            `;
+                            featuredGrid.appendChild(card);
+                        });
 
                     // Configurar eventos para selección múltiple
                     document.querySelectorAll('.product-selector').forEach(checkbox => {
