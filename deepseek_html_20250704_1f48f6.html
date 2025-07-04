@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Comercial Charito - Moda con Estilo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <!-- Boxicons para iconos -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <!-- Montserrat desde Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet" />
     <style>
-        /* PALETA DE COLORES DE MARCA (MANTENIDA) */
+        /* PALETA DE COLORES DE MARCA (MANTENIDO IGUAL) */
         :root {
             --azul: #183a79;
             --rosa: #ec1a59;
@@ -22,109 +24,133 @@
             --footer-divider: #555;
         }
         
-        /* ESTILOS BASE OPTIMIZADOS PARA MÓVIL */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: var(--fondo);
-            color: var(--texto);
-            line-height: 1.5;
-            font-size: 16px; /* Tamaño base aumentado */
-        }
-        
-        /* NAVEGACIÓN MOBILE FIRST */
+        /* NAVIGATION BAR - MOBILE FIRST */
         .navbar {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
             background-color: var(--blanco);
             padding: 12px 15px;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        
-        .mobile-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-        
+
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
+            min-width: auto;
+            flex: none;
+            order: 1;
         }
-        
+
         .logo img {
-            height: 36px;
+            height: 36px; /* Ligeramente más pequeño para móvil */
             width: auto;
         }
-        
+
         .logo-text {
             font-weight: bold;
             color: var(--rosa);
             font-size: 1.1rem; /* Reducido para móvil */
             font-family: 'Montserrat', sans-serif;
         }
-        
+
         .menu-toggle {
             background: none;
             border: none;
             font-size: 1.5rem;
             color: var(--texto);
             cursor: pointer;
+            order: 3;
             display: block;
+            padding: 5px;
         }
-        
+
         .nav-menu {
             list-style: none;
             display: none;
-            flex-direction: column;
             width: 100%;
             margin: 10px 0 0 0;
             padding: 0;
-            gap: 0;
+            flex-direction: column;
+            order: 4;
         }
-        
+
         .nav-menu.active {
             display: flex;
         }
-        
+
         .nav-menu li {
+            padding: 8px 0;
             border-bottom: 1px solid #eee;
         }
-        
+
         .nav-menu a {
-            display: block;
             text-decoration: none;
             color: var(--texto);
             font-weight: 500;
-            padding: 12px 0;
             font-size: 1rem;
+            display: block;
+            padding: 5px 0;
         }
-        
+
         .social-icons {
-            display: none; /* Oculto inicialmente en móviles */
+            display: flex;
+            gap: 15px;
+            order: 2;
+            flex: none;
         }
-        
-        /* CARRUSEL OPTIMIZADO */
+
+        .social-icons a {
+            color: var(--texto);
+            font-size: 1.3rem; /* Reducido para móvil */
+        }
+
+        /* CARRUSEL DE BANNERS - MOBILE OPTIMIZED */
         .banner-carousel {
             width: 100%;
             position: relative;
             overflow: hidden;
-            height: 200px; /* Altura reducida para móvil */
+            height: 180px; /* Altura reducida para móvil */
+            margin: 0 auto;
+            background: transparent;
+        }
+        
+        .banner-wrapper {
+            display: flex;
+            transition: transform 0.8s ease-in-out;
+            height: 100%;
+        }
+        
+        .banner-slide {
+            min-width: 100%;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .banner-slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
+        }
+
+        /* ESTILOS GENERALES - MOBILE FIRST */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--fondo);
+            color: var(--texto);
+            line-height: 1.5; /* Mejor para móvil */
+            font-size: 16px; /* Base aumentada */
         }
         
-        /* SECCIONES Y TÍTULOS */
         .main-container {
             width: 100%;
             padding: 0 15px;
@@ -132,7 +158,7 @@
         }
         
         .section {
-            padding: 1.5rem 0;
+            padding: 1.5rem 0; /* Reducido para móvil */
         }
         
         .section-title {
@@ -141,11 +167,11 @@
         }
         
         .section-title h2 {
-            font-size: 1.5rem; /* Reducido para móvil */
+            font-size: 1.6rem; /* Reducido para móvil */
             color: var(--azul);
             position: relative;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
         }
         
         .section-title h2::after {
@@ -154,9 +180,10 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
+            width: 70px;
             height: 3px;
             background: var(--rosa);
+            border-radius: 2px;
         }
         
         .section-title p {
@@ -164,151 +191,181 @@
             margin-top: 0.5rem;
         }
         
-        /* PRODUCTOS - MOBILE FIRST */
+        /* PRODUCTOS - MOBILE OPTIMIZED */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil */
             gap: 1rem;
         }
-        
+
         .product-card {
             background: var(--blanco);
             border-radius: 8px;
             overflow: hidden;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        
+
         .product-image {
-            height: 150px; /* Altura reducida */
+            height: 160px; /* Reducido para móvil */
             background: var(--gris);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            position: relative;
         }
-        
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
         .product-details {
-            padding: 0.8rem;
+            padding: 1rem; /* Reducido para móvil */
+            text-align: center;
         }
-        
+
         .product-title {
-            font-size: 0.95rem; /* Tamaño ajustado */
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem; /* Reducido para móvil */
             color: var(--azul);
-            margin: 0.3rem 0;
-            height: 2.8em;
-            overflow: hidden;
+            min-height: 2.8em;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
+            overflow: hidden;
         }
-        
+
         .product-price {
-            font-size: 1.1rem; /* Ajustado */
+            font-size: 1.1rem; /* Ajustado para móvil */
             font-weight: 700;
             color: var(--rosa);
-            margin: 0.5rem 0;
+            margin: 0.6rem 0;
         }
-        
+
         .whatsapp-btn {
             background: #25D366;
             color: #fff;
             border: none;
-            padding: 10px;
+            padding: 10px; /* Aumentado para móvil */
             border-radius: 6px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.95rem; /* Aumentado para móvil */
             width: 100%;
             transition: background 0.2s;
             font-weight: 600;
         }
-        
-        /* BOTÓN VER CATÁLOGO */
-        .view-all-container {
+
+        /* ESTILOS PARA SELECCIÓN MÚLTIPLE - MOBILE */
+        .product-selector {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 2;
+            width: 22px; /* Aumentado para móvil */
+            height: 22px; /* Aumentado para móvil */
+            cursor: pointer;
+            accent-color: var(--rosa);
+        }
+
+        .multi-select-actions {
             text-align: center;
             margin-top: 1.5rem;
+            display: none;
         }
-        
-        .view-all-btn {
-            background: var(--azul);
+
+        .send-selected-btn {
+            background: var(--rosa);
             color: white;
-            padding: 12px 25px;
+            border: none;
+            padding: 14px 20px; /* Aumentado para móvil */
             border-radius: 6px;
-            text-decoration: none;
             font-weight: 600;
-            display: inline-block;
+            cursor: pointer;
             font-size: 1rem;
-        }
-        
-        /* WHATSAPP FLOTANTE */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #25D366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            z-index: 99;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            gap: 8px;
+            min-width: 280px; /* Para mejor tacto */
         }
-        
-        /* FOOTER MOBILE */
-        footer {
-            background-color: var(--footer-bg);
-            padding: 30px 20px;
+
+        /* SECCIÓN TRANSMISIONES - MOBILE */
+        .transmisiones-content {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            gap: 30px;
+        }
+        
+        .tiktok-video-container {
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .transmisiones-info {
+            width: 100%;
+        }
+        
+        .proximas-transmisiones h4 {
+            font-size: 1.2rem; /* Reducido para móvil */
+        }
+        
+        .transmisiones-list li {
+            font-size: 1rem; /* Reducido para móvil */
+        }
+        
+        /* BOTONES REDES SOCIALES - MOBILE */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin: 8px 0;
             text-align: center;
         }
         
-        .footer-left img {
-            height: 70px;
+        /* WHATSAPP FLOTANTE - MOBILE */
+        .whatsapp-float {
+            width: 60px;
+            height: 60px;
+            bottom: 20px;
+            right: 20px;
+            font-size: 1.8rem;
         }
-        
+
+        /* FOOTER - MOBILE */
+        footer {
+            flex-direction: column;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
         .divider {
             display: none;
         }
-        
+
+        .footer-left img {
+            height: 80px;
+        }
+
         .footer-center {
             margin: 20px 0;
         }
-        
+
         .footer-center a {
             display: block;
-            color: var(--footer-text);
-            text-decoration: none;
-            margin: 8px 0;
-            font-size: 0.95rem;
+            margin: 10px 0;
         }
-        
-        .footer-social-icons {
-            display: flex;
-            gap: 15px;
-            margin: 15px 0;
-        }
-        
-        .copyright {
-            font-size: 0.8rem;
-            margin-top: 20px;
-        }
-        
+
         /* MEDIA QUERIES PARA ESCRITORIO */
         @media (min-width: 768px) {
             .navbar {
-                flex-direction: row;
-                justify-content: space-between;
-                padding: 10px 30px;
-            }
-            
-            .mobile-header {
-                width: auto;
+                flex-wrap: nowrap;
+                padding: 9px 30px;
             }
             
             .menu-toggle {
@@ -320,20 +377,25 @@
                 flex-direction: row;
                 width: auto;
                 margin: 0;
-                gap: 20px;
+                order: 2;
+                flex: 2;
+                gap: 25px;
             }
             
             .nav-menu li {
+                padding: 0;
                 border-bottom: none;
             }
             
             .nav-menu a {
+                font-size: 18px;
                 padding: 5px 0;
+                display: inline;
             }
             
             .social-icons {
-                display: flex;
-                gap: 15px;
+                order: 3;
+                font-size: 24px;
             }
             
             .banner-carousel {
@@ -341,31 +403,26 @@
             }
             
             .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 1.5rem;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             }
             
             .section-title h2 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+            
+            .transmisiones-content {
+                flex-direction: row;
+            }
+            
+            .btn {
+                display: inline-block;
+                width: auto;
+                margin: 0 8px;
             }
             
             footer {
                 flex-direction: row;
-                justify-content: space-between;
                 text-align: left;
-                padding: 40px 60px;
-            }
-            
-            .divider {
-                display: block;
-                width: 1px;
-                background-color: var(--footer-divider);
-                margin: 0 30px;
-                height: 120px;
-            }
-            
-            .footer-center {
-                margin: 0;
             }
             
             .footer-center a {
@@ -373,78 +430,94 @@
                 margin: 0 10px;
             }
             
-            .footer-social-icons {
-                margin: 0;
+            .divider {
+                display: block;
             }
         }
     </style>
 </head>
 <body>
-    <!-- NAVEGACIÓN OPTIMIZADA PARA MÓVIL -->
+    <!-- NAVIGATION BAR CON MENÚ HAMBURGUESA -->
     <nav class="navbar">
-        <div class="mobile-header">
-            <div class="logo">
-                <img src="logotipo.png" alt="Logo Comercial Charito">
-                <span class="logo-text">COMERCIAL CHARITO</span>
-            </div>
-            <button class="menu-toggle" id="menuToggle">
-                <i class="bx bx-menu"></i>
-            </button>
+        <div class="logo">
+            <img src="logotipo.png" alt="Logo Comercial Charito" />
+            <span class="logo-text">COMERCIAL CHARITO</span>
         </div>
-        
+
+        <button class="menu-toggle" id="menuToggle">
+            <i class='bx bx-menu'></i>
+        </button>
+
         <ul class="nav-menu" id="navMenu">
             <li><a href="#productos">Catálogo</a></li>
             <li><a href="https://wa.me/51940243849">Contacto</a></li>
             <li><a href="#transmisiones">Transmisiones</a></li>
         </ul>
-        
+
         <div class="social-icons">
-            <a href="https://www.facebook.com/CharitoYsusNovedades" target="_blank"><i class='bx bxl-facebook-circle'></i></a>
-            <a href="https://www.tiktok.com/@c.charito" target="_blank"><i class='bx bxl-tiktok'></i></a>
+            <a href="https://www.facebook.com/CharitoYsusNovedades/?locale=es_LA" target="_blank"><i class='bx bxl-facebook-circle'></i></a>
+            <a href="https://www.tiktok.com/@c.charito?is_from_webapp=1&sender_device=pc" target="_blank"><i class='bx bxl-tiktok'></i></a>
             <a href="https://wa.me/51940243849"><i class='bx bxl-whatsapp'></i></a>
         </div>
     </nav>
 
-    <!-- CONTENIDO PRINCIPAL -->
+    <!-- Resto del contenido se mantiene IGUAL desde el div.main-container hasta el final -->
     <div class="main-container">
-        <!-- Carrusel -->
+        <!-- Carrusel de Banners -->
         <div class="banner-carousel">
             <div class="banner-wrapper">
                 <div class="banner-slide">
-                    <img src="banner.png" alt="Banner principal">
+                    <img src="banner.png" alt="Banner principal Comercial Charito">
                 </div>
                 <div class="banner-slide">
-                    <img src="bannert.png" alt="Banner de transmisiones">
+                    <img src="bannert.png" alt="Banner de transmisiones Comercial Charito">
+                </div>
+                <div class="banner-slide">
+                    <img src="bannerc.png" alt="Banner promocional Comercial Charito">
                 </div>
             </div>
         </div>
 
-        <!-- Productos Destacados -->
+        <!-- Productos -->
         <section class="section" id="destacados">
             <div class="section-title">
                 <h2>Productos Destacados</h2>
                 <p>Las mejores selecciones de esta temporada</p>
             </div>
             
-            <div class="products-grid" id="featured-products">
-                <!-- Los productos se cargarán dinámicamente aquí -->
+            <div class="products-grid" id="featured-products"></div>
+
+            <div class="multi-select-actions" id="multiSelectActions">
+                <button class="send-selected-btn" id="sendSelectedBtn">
+                    <i class="fas fa-paper-plane"></i> Pedir seleccionados por WhatsApp
+                    <span class="selected-count" id="selectedCount">0</span>
+                </button>
             </div>
-            
+
             <div class="view-all-container">
                 <a href="/catalogo.html" class="view-all-btn">Ver catálogo completo</a>
             </div>
         </section>
 
-        <!-- Transmisiones -->
+        <!-- Transmisiones con Video de TikTok -->
         <section class="section" id="transmisiones">
             <div class="section-title">
                 <h2>Transmisiones en Vivo</h2>
             </div>
             
             <div class="transmisiones-content">
+                <!-- Contenedor para el video de TikTok -->
                 <div class="tiktok-video-container">
-                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@c.charito">
-                        <!-- Contenido de TikTok -->
+                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@c.charito/video/7279466252949638406" 
+                        data-video-id="7279466252949638406">
+                        <section> 
+                            <a target="_blank" title="@c.charito" href="https://www.tiktok.com/@c.charito?refer=embed">@c.charito</a> 
+                            Emprende con nosotros! Realizamos envíos a todo Lima y Provincias 🇵🇪 Pedidos al 940243849 💢 
+                            <a title="emprendimiento" target="_blank" href="https://www.tiktok.com/tag/emprendimiento?refer=embed">#emprendimiento</a> 
+                            <a title="comercialcharito" target="_blank" href="https://www.tiktok.com/tag/comercialcharito?refer=embed">#comercialcharito</a> 
+                            <a target="_blank" title="♬ sonido original - Comercial Charito" 
+                                href="https://www.tiktok.com/music/sonido-original-7279466294100560646?refer=embed">♬ sonido original - Comercial Charito</a> 
+                        </section>
                     </blockquote>
                 </div>
                 
@@ -452,13 +525,23 @@
                     <div class="proximas-transmisiones">
                         <h4>Horario de transmisiones:</h4>
                         <ul class="transmisiones-list">
-                            <li><i class="fas fa-clock"></i> Lunes a sábado a las 12:00 AM</li>
+                            <li>
+                                <i class="fas fa-clock"></i>
+                                De lunes a sábado a las 12:00 AM
+                            </li>
                         </ul>
+                        <p style="margin-top: 1.5rem; font-size: 1.1rem;">
+                            Síguenos en nuestras redes sociales para enterarte de todas nuestras transmisiones en vivo y novedades.
+                        </p>
                     </div>
                     
+                    <!-- Botones para redes sociales -->
                     <div class="social-buttons">
-                        <a href="https://www.tiktok.com/@c.charito" class="btn btn-tiktok" target="_blank">
+                        <a href="https://www.tiktok.com/@c.charito?is_from_webapp=1&sender_device=pc" class="btn btn-tiktok" target="_blank">
                             <i class="fab fa-tiktok"></i> Síguenos en TikTok
+                        </a>
+                        <a href="https://www.facebook.com/CharitoYsusNovedades/?locale=es_LA" class="btn btn-facebook" target="_blank">
+                            <i class="fab fa-facebook-f"></i> Síguenos en Facebook
                         </a>
                     </div>
                 </div>
@@ -474,23 +557,22 @@
     <!-- FOOTER -->
     <footer>
         <div class="footer-left">
-            <img src="logo.png" alt="Comercial Charito">
+            <img src="logo.png" alt="Comercial Charito" />
         </div>
-        
+        <div class="divider"></div>
         <div class="footer-center">
             <a href="#productos">Catálogo</a>
             <a href="#transmisiones">Transmisiones</a>
             <a href="https://wa.me/51940243849">Contacto</a>
         </div>
-        
         <div class="footer-right">
             <div class="footer-social-icons">
-                <a href="https://www.facebook.com/CharitoYsusNovedades" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.tiktok.com/@c.charito" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.facebook.com/CharitoYsusNovedades/?locale=es_LA" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@c.charito?is_from_webapp=1&sender_device=pc" target="_blank"><i class="fab fa-tiktok"></i></a>
                 <a href="https://wa.me/51940243849"><i class="fab fa-whatsapp"></i></a>
             </div>
             <a href="https://maps.app.goo.gl/nxpj4PHsxNGPmEER9" class="location-text" target="_blank">
-                Jr. Lima con Grau 681, Comas
+                Ubicación: Jr. Lima con Grau 681, Comas
             </a>
         </div>
     </footer>
@@ -498,55 +580,135 @@
         &copy; 2023 Comercial Charito. Todos los derechos reservados.
     </div>
 
-    <!-- SCRIPTS -->
+    <!-- Script de TikTok -->
+    <script async src="https://www.tiktok.com/embed.js"></script>
+
     <script>
-        // Menú móvil
+        // Menú hamburguesa
         document.getElementById('menuToggle').addEventListener('click', function() {
             document.getElementById('navMenu').classList.toggle('active');
         });
-        
-        // Carrusel simple
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.banner-slide');
-        
-        function showSlide(n) {
-            slides.forEach(slide => {
-                slide.style.transform = `translateX(-${n * 100}%)`;
-            });
+
+        // Función que abre WhatsApp con texto prellenado
+        function enviarWhatsApp(productText) {
+            const telefono = '51940246849';
+            const url = 'https://wa.me/' + telefono + '?text=' + encodeURIComponent(productText);
+            window.open(url, '_blank');
         }
-        
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }, 5000);
-        
-        // Cargar productos destacados
+
+        // Al cargar la página, pide el JSON y crea las cards
         document.addEventListener('DOMContentLoaded', () => {
+            const featuredGrid = document.getElementById('featured-products');
+            const multiSelectActions = document.getElementById('multiSelectActions');
+            const sendSelectedBtn = document.getElementById('sendSelectedBtn');
+            const selectedCount = document.getElementById('selectedCount');
+            
+            let selectedProducts = [];
+            
             fetch('/productos/index.json')
                 .then(r => r.json())
                 .then(products => {
-                    const featured = products.filter(p => p.featured).slice(0, 6);
-                    const grid = document.getElementById('featured-products');
+                    // Filtrar solo productos destacados
+                    const featuredProducts = products.filter(p => p.featured);
                     
-                    featured.forEach(prod => {
-                        grid.innerHTML += `
-                            <div class="product-card">
+                    if(featuredProducts.length === 0) {
+                        featuredGrid.innerHTML = '<p class="no-featured">No hay productos destacados en este momento. Visita nuestro <a href="/catalogo.html">catálogo completo</a></p>';
+                        return;
+                    }
+                    
+                    featuredProducts.forEach(prod => {
+                            const card = document.createElement('div');
+                            card.className = 'product-card featured';
+                            card.innerHTML = `
+                                <div class="featured-badge">⭐ Destacado</div>
+                                <input type="checkbox" class="product-selector" data-product="${prod.title} (Código: ${prod.code || 'N/A'}) - S/${prod.price.toFixed(2)}">
                                 <div class="product-image">
                                     <img src="${prod.image}" alt="${prod.title}" loading="lazy">
                                 </div>
                                 <div class="product-details">
+                                    <span class="product-code">Código: ${prod.code || 'N/A'}</span>
+                                    <span class="product-category">${prod.category || 'General'}</span>
                                     <h3 class="product-title">${prod.title}</h3>
                                     <div class="product-price">S/${prod.price.toFixed(2)}</div>
-                                    <button class="whatsapp-btn" onclick="window.open('https://wa.me/51940243849?text=Estoy interesado en ${encodeURIComponent(prod.title)} (S/${prod.price.toFixed(2)})', '_blank')">
-                                        <i class="fab fa-whatsapp"></i> Pedir
+                                    <button class="whatsapp-btn"
+                                        onclick="enviarWhatsApp('${prod.title} (Código: ${prod.code || 'N/A'}) - S/${prod.price.toFixed(2)}')">
+                                        <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
                                     </button>
                                 </div>
-                            </div>
-                        `;
+                            `;
+                            featuredGrid.appendChild(card);
+                        });
+
+                    // Configurar eventos para selección múltiple
+                    document.querySelectorAll('.product-selector').forEach(checkbox => {
+                        checkbox.addEventListener('change', function() {
+                            const productInfo = this.getAttribute('data-product');
+                            
+                            if(this.checked) {
+                                selectedProducts.push(productInfo);
+                            } else {
+                                selectedProducts = selectedProducts.filter(p => p !== productInfo);
+                            }
+                            
+                            // Actualizar UI
+                            selectedCount.textContent = selectedProducts.length;
+                            
+                            if(selectedProducts.length > 0) {
+                                multiSelectActions.classList.add('show');
+                            } else {
+                                multiSelectActions.classList.remove('show');
+                            }
+                        });
                     });
+                })
+                .catch(err => console.error('Error cargando productos destacados:', err));
+
+            // Configurar botón para enviar selección
+            sendSelectedBtn.addEventListener('click', function() {
+                if(selectedProducts.length === 0) return;
+                
+                let message = '¡Hola Comercial Charito! Estoy interesado/a en los siguientes productos:\n\n';
+                message += selectedProducts.map((p, i) => `${i+1}. ${p}`).join('\n');
+                message += '\n\n¿Podrían darme más información?';
+                
+                enviarWhatsApp(message);
+            });
+
+            // Carrusel de banners
+            let currentSlide = 0;
+            const bannerWrapper = document.querySelector('.banner-wrapper');
+            const slides = document.querySelectorAll('.banner-slide');
+            const totalSlides = slides.length;
+            
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateCarousel();
+            }
+            
+            function updateCarousel() {
+                const offset = -currentSlide * 100;
+                bannerWrapper.style.transform = `translateX(${offset}%)`;
+            }
+            
+            // Cambiar slide cada 5 segundos
+            setInterval(nextSlide, 5000);
+            
+            // Iniciar carrusel
+            updateCarousel();
+
+            // Navegación suave
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
                 });
+            });
         });
     </script>
-    <script async src="https://www.tiktok.com/embed.js"></script>
 </body>
 </html>
