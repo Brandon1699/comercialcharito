@@ -179,20 +179,21 @@
             display: none;
         }
 
-        /* CARRUSEL DE BANNERS - MEJORADO */
+        /* CARRUSEL DE BANNERS - CORREGIDO */
         .banner-carousel {
             width: 100%;
             position: relative;
             overflow: hidden;
             height: 200px;
             margin: 0 auto;
-            background: transparent;
+            background: var(--gris);
         }
         
         .banner-wrapper {
             display: flex;
             transition: transform 0.5s ease-in-out;
             height: 100%;
+            width: 100%;
         }
         
         .banner-slide {
@@ -201,6 +202,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
         
         .banner-slide img {
@@ -208,6 +210,7 @@
             height: 100%;
             object-fit: contain;
             display: block;
+            position: absolute;
         }
 
         /* Indicadores del carrusel */
@@ -748,10 +751,12 @@
             
             .nav-menu a {
                 padding: 5px 0;
+                color: var(--texto);
             }
             
             .nav-menu a:hover {
                 background: transparent;
+                color: var(--rosa);
             }
             
             .mobile-social-icons {
@@ -768,6 +773,11 @@
             
             .desktop-social-icons a {
                 font-size: 24px;
+                color: var(--texto);
+            }
+
+            .desktop-social-icons a:hover {
+                color: var(--rosa);
             }
             
             .logo {
