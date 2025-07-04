@@ -76,7 +76,7 @@
         }
 
         .nav-menu {
-            display: none; /* Oculto por defecto en móvil */
+            display: none;
             list-style: none;
             margin: 0;
             padding: 15px 0;
@@ -118,44 +118,6 @@
             background: var(--gris);
         }
 
-        /* Social icons dentro del menú móvil */
-        .mobile-social-icons {
-            display: none;
-            justify-content: center;
-            gap: 20px;
-            padding: 15px 0;
-            width: 100%;
-            border-top: 1px solid var(--gris);
-        }
-
-        .mobile-social-icons a {
-            color: var(--texto);
-            font-size: 24px;
-            transition: color 0.2s ease;
-        }
-
-        .mobile-social-icons a:hover {
-            color: var(--rosa);
-        }
-
-        /* Social icons en navbar (solo desktop) */
-        .desktop-social-icons {
-            display: flex;
-            gap: 12px;
-            margin-left: auto;
-            padding-left: 10px;
-        }
-
-        .desktop-social-icons a {
-            color: var(--texto);
-            font-size: 20px;
-            transition: color 0.2s ease;
-        }
-
-        .desktop-social-icons a:hover {
-            color: var(--rosa);
-        }
-
         /* Menú hamburguesa para móvil */
         .menu-toggle {
             display: flex;
@@ -165,6 +127,7 @@
             height: 18px;
             margin-right: 15px;
             cursor: pointer;
+            z-index: 100;
         }
 
         .menu-toggle span {
@@ -187,7 +150,36 @@
             transform: translateY(-8px) rotate(-45deg);
         }
 
-        /* CARRUSEL DE BANNERS - MEJORADO PARA MÓVIL */
+        /* Social icons solo en menú móvil */
+        .mobile-social-icons {
+            display: none;
+            justify-content: center;
+            gap: 20px;
+            padding: 15px 0;
+            width: 100%;
+            border-top: 1px solid var(--gris);
+        }
+
+        .mobile-social-icons.active {
+            display: flex;
+        }
+
+        .mobile-social-icons a {
+            color: var(--texto);
+            font-size: 24px;
+            transition: color 0.2s ease;
+        }
+
+        .mobile-social-icons a:hover {
+            color: var(--rosa);
+        }
+
+        /* Social icons en desktop */
+        .desktop-social-icons {
+            display: none;
+        }
+
+        /* CARRUSEL DE BANNERS - MEJORADO */
         .banner-carousel {
             width: 100%;
             position: relative;
@@ -214,7 +206,7 @@
         .banner-slide img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             display: block;
         }
 
@@ -727,7 +719,7 @@
         @media (min-width: 768px) {
             .navbar {
                 flex-direction: row;
-                padding: 9px 20px;
+                padding: 9px 30px;
                 gap: 0;
             }
             
@@ -742,8 +734,11 @@
                 background: transparent;
                 box-shadow: none;
                 width: auto;
-                gap: 20px;
+                gap: 25px;
                 padding: 0;
+                margin: 0 auto;
+                justify-content: center;
+                flex: 2;
             }
             
             .nav-menu li {
@@ -765,6 +760,14 @@
             
             .desktop-social-icons {
                 display: flex;
+                gap: 15px;
+                flex: 1;
+                justify-content: flex-end;
+                min-width: 150px;
+            }
+            
+            .desktop-social-icons a {
+                font-size: 24px;
             }
             
             .logo {
@@ -782,6 +785,10 @@
             
             .banner-carousel {
                 height: 300px;
+            }
+
+            .banner-slide img {
+                object-fit: cover;
             }
             
             .main-container {
@@ -827,7 +834,7 @@
             footer {
                 flex-direction: row;
                 align-items: flex-start;
-                padding: 40px 30px;
+                padding: 40px 60px;
                 text-align: left;
             }
 
@@ -838,13 +845,13 @@
             }
 
             .footer-left img {
-                height: 100px;
+                height: 108px;
             }
 
             .divider {
                 width: 1px;
                 height: 120px;
-                margin: 0 30px;
+                margin: 0 40px;
             }
 
             .footer-center {
@@ -869,7 +876,7 @@
     </style>
 </head>
 <body>
-    <!-- NAVIGATION BAR OPTIMIZADA PARA MÓVIL -->
+    <!-- NAVIGATION BAR OPTIMIZADA -->
     <nav class="navbar">
         <div class="logo">
             <img src="logotipo.png" alt="Logo Comercial Charito" />
@@ -1046,9 +1053,9 @@
             
             // Mostrar/ocultar íconos sociales en móvil
             if(navMenu.classList.contains('active')) {
-                mobileSocialIcons.style.display = 'flex';
+                mobileSocialIcons.classList.add('active');
             } else {
-                mobileSocialIcons.style.display = 'none';
+                mobileSocialIcons.classList.remove('active');
             }
         });
 
@@ -1057,7 +1064,7 @@
             link.addEventListener('click', () => {
                 menuToggle.classList.remove('active');
                 navMenu.classList.remove('active');
-                mobileSocialIcons.style.display = 'none';
+                mobileSocialIcons.classList.remove('active');
             });
         });
 
