@@ -197,6 +197,21 @@
             color: var(--rosa);
             margin: 0.8rem 0;
         }
+
+        .product-selector {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 20px;
+            height: 20px;
+            z-index: 3;
+            cursor: pointer;
+            accent-color: var(--rosa);
+        }
+        
+        .product-selector:checked {
+            outline: 2px solid var(--amarillo);
+        }
         
         .whatsapp-btn {
             background: #25D366;
@@ -885,7 +900,9 @@
                         card.className = `product-card ${prod.featured ? 'featured' : ''}`;
                         card.innerHTML = `
                             ${prod.featured ? '<div class="featured-badge">⭐ Destacado</div>' : ''}
-                            <input type="checkbox" class="product-selector" data-product="${prod.title} - S/${prod.price.toFixed(2)}">
+                            <input type="checkbox" class="product-selector" 
+                                   data-product="${prod.title} (Código: ${prod.code || 'N/A'}) - S/${prod.price.toFixed(2)}"
+                                   data-code="${prod.code || ''}">
                             <div class="product-image">
                                 <img src="${prod.image}" alt="${prod.title}" loading="lazy">
                             </div>
@@ -906,22 +923,20 @@
                     // Configurar eventos para selección múltiple
                     document.querySelectorAll('.product-selector').forEach(checkbox => {
                         checkbox.addEventListener('change', function() {
-                            const productInfo = this.getAttribute('data-product');
+                            const productTitle = this.closest('.product-card').querySelector('.product-title').textContent;
+                            const productPrice = this.closest('.product-card').querySelector('.product-price').textContent;
+                            const productCode = this.dataset.code || 'N/A';
+                            
+                            const productInfo = `${productTitle} (Código: ${productCode}) - ${productPrice}`;
                             
                             if(this.checked) {
                                 selectedProducts.push(productInfo);
                             } else {
-                                selectedProducts = selectedProducts.filter(p => p !== productInfo);
+                                selectedProducts = selectedProducts.filter(p => !p.includes(productTitle));
                             }
                             
-                            // Actualizar UI
                             selectedCount.textContent = selectedProducts.length;
-                            
-                            if(selectedProducts.length > 0) {
-                                multiSelectActions.classList.add('show');
-                            } else {
-                                multiSelectActions.classList.remove('show');
-                            }
+                            multiSelectActions.classList.toggle('show', selectedProducts.length > 0);
                         });
                     });
                 }
@@ -941,13 +956,43 @@
                         renderProducts(allProducts);
                     });
                 });
+
+                // Puedes añadir esta función para mejor manejo de los productos seleccionados
+                function getSelectedProductsInfo() {
+                    return Array.from(document.querySelectorAll('.product-selector:checked'))
+                        .map(checkbox => {
+                            const card = checkbox.closest('.product-card');
+                            const title = card.querySelector('.product-title').textContent;
+                            const price = card.querySelector('.product-price').textContent;
+                            const code = checkbox.dataset.code || 'N/A';
+                            return `${title} (Código: ${code}) - ${price}`;
+                        });
+                }
                 
+                // Y usarla así en el event listener:
+                sendSelectedBtn.addEventListener('click', function() {
+                    const selected = getSelectedProductsInfo();
+                    if(selected.length === 0) return;
+                    
+                    let message = '¡Hola Comercial Charito! Estoy interesado/a en:\n\n';
+                    message += selected.map((p, i) => `${i+1}. ${p}`).join('\n');
+                    message += '\n\n¿Podrían darme más información?';
+                    
+                    enviarWhatsApp(message);
+                });
+            
                 // Botón para enviar selección por WhatsApp
                 sendSelectedBtn.addEventListener('click', function() {
                     if(selectedProducts.length === 0) return;
                     
                     let message = '¡Hola Comercial Charito! Estoy interesado/a en los siguientes productos:\n\n';
-                    message += selectedProducts.map((p, i) => `${i+1}. ${p}`).join('\n');
+                    
+                    // Obtener los productos completos seleccionados
+                    const selectedFullProducts = allProducts.filter(p => 
+                        selectedProducts.some(sp => sp.includes(p.title))
+                        .map(p => `${p.title} (Código: ${p.code || 'N/A'}) - S/${p.price.toFixed(2)}`);
+                    
+                    message += selectedFullProducts.map((p, i) => `${i+1}. ${p}`).join('\n');
                     message += '\n\n¿Podrían darme más información?';
                     
                     enviarWhatsApp(message);
