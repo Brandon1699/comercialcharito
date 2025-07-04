@@ -79,7 +79,7 @@
             display: none; /* Oculto por defecto en móvil */
             list-style: none;
             margin: 0;
-            padding: 0;
+            padding: 15px 0;
             position: fixed;
             top: 60px;
             left: 0;
@@ -118,20 +118,41 @@
             background: var(--gris);
         }
 
-        .social-icons {
+        /* Social icons dentro del menú móvil */
+        .mobile-social-icons {
+            display: none;
+            justify-content: center;
+            gap: 20px;
+            padding: 15px 0;
+            width: 100%;
+            border-top: 1px solid var(--gris);
+        }
+
+        .mobile-social-icons a {
+            color: var(--texto);
+            font-size: 24px;
+            transition: color 0.2s ease;
+        }
+
+        .mobile-social-icons a:hover {
+            color: var(--rosa);
+        }
+
+        /* Social icons en navbar (solo desktop) */
+        .desktop-social-icons {
             display: flex;
             gap: 12px;
             margin-left: auto;
             padding-left: 10px;
         }
 
-        .social-icons a {
+        .desktop-social-icons a {
             color: var(--texto);
             font-size: 20px;
             transition: color 0.2s ease;
         }
 
-        .social-icons a:hover {
+        .desktop-social-icons a:hover {
             color: var(--rosa);
         }
 
@@ -171,7 +192,7 @@
             width: 100%;
             position: relative;
             overflow: hidden;
-            height: 180px;
+            height: 200px;
             margin: 0 auto;
             background: transparent;
         }
@@ -294,8 +315,8 @@
         }
 
         .product-image img {
-            max-width: 100%;
-            max-height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
             transition: transform 0.3s ease;
         }
@@ -689,7 +710,7 @@
         /* MEJORAS PARA TABLETS */
         @media (min-width: 480px) {
             .banner-carousel {
-                height: 220px;
+                height: 250px;
             }
             
             .products-grid {
@@ -722,6 +743,7 @@
                 box-shadow: none;
                 width: auto;
                 gap: 20px;
+                padding: 0;
             }
             
             .nav-menu li {
@@ -737,6 +759,14 @@
                 background: transparent;
             }
             
+            .mobile-social-icons {
+                display: none !important;
+            }
+            
+            .desktop-social-icons {
+                display: flex;
+            }
+            
             .logo {
                 flex: 1;
                 min-width: 200px;
@@ -748,17 +778,6 @@
             
             .logo-text {
                 font-size: 1.2rem;
-            }
-            
-            .social-icons {
-                flex: 1;
-                justify-content: flex-end;
-                min-width: 150px;
-                margin-left: 0;
-            }
-            
-            .social-icons a {
-                font-size: 24px;
             }
             
             .banner-carousel {
@@ -867,9 +886,14 @@
             <li><a href="#productos">Catálogo</a></li>
             <li><a href="https://wa.me/51940243849">Contacto</a></li>
             <li><a href="#transmisiones">Transmisiones</a></li>
+            <div class="mobile-social-icons">
+                <a href="https://www.facebook.com/CharitoYsusNovedades/?locale=es_LA" target="_blank"><i class='bx bxl-facebook-circle'></i></a>
+                <a href="https://www.tiktok.com/@c.charito?is_from_webapp=1&sender_device=pc" target="_blank"><i class='bx bxl-tiktok'></i></a>
+                <a href="https://wa.me/51940243849"><i class='bx bxl-whatsapp'></i></a>
+            </div>
         </ul>
 
-        <div class="social-icons">
+        <div class="desktop-social-icons">
             <a href="https://www.facebook.com/CharitoYsusNovedades/?locale=es_LA" target="_blank"><i class='bx bxl-facebook-circle'></i></a>
             <a href="https://www.tiktok.com/@c.charito?is_from_webapp=1&sender_device=pc" target="_blank"><i class='bx bxl-tiktok'></i></a>
             <a href="https://wa.me/51940243849"><i class='bx bxl-whatsapp'></i></a>
@@ -1006,7 +1030,7 @@
     <script>
         // Función que abre WhatsApp con texto prellenado
         function enviarWhatsApp(productText) {
-            const telefono = '51940246849';
+            const telefono = '51940243849'; // Número corregido
             const url = 'https://wa.me/' + telefono + '?text=' + encodeURIComponent(productText);
             window.open(url, '_blank');
         }
@@ -1014,10 +1038,18 @@
         // Menú hamburguesa para móvil
         const menuToggle = document.querySelector('.menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
+        const mobileSocialIcons = document.querySelector('.mobile-social-icons');
         
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
+            
+            // Mostrar/ocultar íconos sociales en móvil
+            if(navMenu.classList.contains('active')) {
+                mobileSocialIcons.style.display = 'flex';
+            } else {
+                mobileSocialIcons.style.display = 'none';
+            }
         });
 
         // Cerrar menú al hacer clic en un enlace
@@ -1025,6 +1057,7 @@
             link.addEventListener('click', () => {
                 menuToggle.classList.remove('active');
                 navMenu.classList.remove('active');
+                mobileSocialIcons.style.display = 'none';
             });
         });
 
