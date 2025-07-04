@@ -1,5 +1,15 @@
 [
   {
+    "featured": false,
+    "code": "PROD-20250704-034711",
+    "image": "/uploads/logo-tienda-de-frutas-y-verduras-circular-verde.png",
+    "title": "testing",
+    "price": 20,
+    "gender": "hombre",
+    "style": "casual",
+    "category": "polos-mujeres"
+  },
+  {
     "featured": true,
     "code": "PROD-20250703-183649",
     "image": "/uploads/imagen_2025-07-03_183547058.png",
