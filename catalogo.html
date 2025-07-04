@@ -197,21 +197,6 @@
             color: var(--rosa);
             margin: 0.8rem 0;
         }
-
-        .product-selector {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 20px;
-            height: 20px;
-            z-index: 3;
-            cursor: pointer;
-            accent-color: var(--rosa);
-        }
-        
-        .product-selector:checked {
-            outline: 2px solid var(--amarillo);
-        }
         
         .whatsapp-btn {
             background: #25D366;
@@ -242,6 +227,18 @@
             margin-bottom: 0.3rem;
             text-transform: uppercase;
             font-weight: 600;
+        }
+
+        .product-code {
+            display: block;
+            font-size: 0.75rem;
+            color: #666;
+            margin-bottom: 0.3rem;
+            font-family: 'Courier New', monospace;
+            background: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+            display: inline-block;
         }
 
         .featured-badge {
@@ -297,10 +294,6 @@
             outline: none;
             box-shadow: 0 0 0 2px rgba(24, 58, 121, 0.2);
         }
-
-        .sort-options-container {
-            margin-left: auto;
-        }
         
         .sort-options {
             display: flex;
@@ -328,34 +321,20 @@
             border-color: var(--azul);
         }
 
-        .reset-filters-btn {
-            background: var(--rosa);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-        }
-        
-        .reset-filters-btn:hover {
-            background: #c71545;
-        }
-
-
         /* ESTILOS PARA SELECCIÓN MÚLTIPLE */
         .product-selector {
             position: absolute;
             top: 10px;
             left: 10px;
-            z-index: 2;
             width: 20px;
             height: 20px;
+            z-index: 3;
             cursor: pointer;
+            accent-color: var(--rosa);
+        }
+
+        .product-selector:checked {
+            outline: 2px solid var(--amarillo);
         }
 
         .multi-select-actions {
@@ -392,6 +371,25 @@
             margin-left: 10px;
             font-size: 0.9rem;
             color: var(--azul);
+        }
+
+        /* BOTÓN RESET FILTROS */
+        .reset-filters-btn {
+            background: var(--rosa);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .reset-filters-btn:hover {
+            background: #c71545;
         }
 
         /* FOOTER */
@@ -557,7 +555,7 @@
                 gap: 0.5rem;
             }
             
-            .filter-select, .search-box {
+            .filter-select, .search-box, .reset-filters-btn {
                 width: 100%;
                 min-width: auto;
             }
@@ -569,19 +567,6 @@
             
             .sort-options {
                 justify-content: center;
-            }
-
-            .reset-filters-btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .product-code {
-                display: block;
-                font-size: 0.7rem;
-                color: #666;
-                margin-bottom: 0.3rem;
-                font-family: monospace;
             }
             
             footer {
@@ -629,14 +614,14 @@
         <ul class="nav-menu">
             <li><a href="index.html">Inicio</a></li>
             <li><a href="#productos">Catálogo</a></li>
-            <li><a href="https://wa.me/51940243849">Contacto</a></li>
+            <li><a href="https://wa.me/51940246849">Contacto</a></li>
             <li><a href="#transmisiones">Transmisiones</a></li>
         </ul>
 
         <div class="social-icons">
             <a href="https://www.facebook.com/CharitoYsusNovedades/?locale=es_LA" target="_blank"><i class='bx bxl-facebook-circle'></i></a>
             <a href="https://www.tiktok.com/@c.charito?is_from_webapp=1&sender_device=pc" target="_blank"><i class='bx bxl-tiktok'></i></a>
-            <a href="https://wa.me/51940243849"><i class='bx bxl-whatsapp'></i></a>
+            <a href="https://wa.me/51940246849"><i class='bx bxl-whatsapp'></i></a>
         </div>
     </nav>
 
@@ -650,7 +635,6 @@
             </div>
             
             <div class="catalog-controls">
-                <!-- Filtros por género, estilo y categoría -->
                 <div class="filter-group">
                     <select id="gender-filter" class="filter-select">
                         <option value="">Todos los géneros</option>
@@ -658,9 +642,6 @@
                         <option value="hombre">Hombre</option>
                         <option value="ninos">Niños/Niñas</option>
                     </select>
-                    <button id="reset-filters" class="reset-filters-btn">
-                        <i class="fas fa-times"></i> Limpiar filtros
-                    </button>
                 </div>
                 
                 <div class="filter-group">
@@ -678,12 +659,16 @@
                     </select>
                 </div>
                 
-                <!-- Barra de búsqueda -->
                 <div class="filter-group">
                     <input type="text" id="search-box" class="search-box" placeholder="Buscar productos...">
                 </div>
                 
-                <!-- Opciones de ordenación -->
+                <div class="filter-group">
+                    <button id="reset-filters" class="reset-filters-btn">
+                        <i class="fas fa-times"></i> Limpiar filtros
+                    </button>
+                </div>
+                
                 <div class="filter-group sort-options-container">
                     <div class="sort-options">
                         <button class="sort-btn active" data-sort="featured">Destacados</button>
@@ -705,7 +690,7 @@
     </div>
 
     <!-- WhatsApp flotante -->
-    <a href="https://wa.me/51940243849" class="whatsapp-float">
+    <a href="https://wa.me/51940246849" class="whatsapp-float">
         <i class="fab fa-whatsapp"></i>
     </a>
 
@@ -718,13 +703,13 @@
         <div class="footer-center">
             <a href="index.html">Inicio</a>
             <a href="#productos">Catálogo</a>
-            <a href="https://wa.me/51940243849">Contacto</a>
+            <a href="https://wa.me/51940246849">Contacto</a>
         </div>
         <div class="footer-right">
             <div class="footer-social-icons">
                 <a href="https://www.facebook.com/CharitoYsusNovedades/?locale=es_LA" target="_blank"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://www.tiktok.com/@c.charito?is_from_webapp=1&sender_device=pc" target="_blank"><i class="fab fa-tiktok"></i></a>
-                <a href="https://wa.me/51940243849"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://wa.me/51940246849"><i class="fab fa-whatsapp"></i></a>
             </div>
             <a href="https://maps.app.goo.gl/nxpj4PHsxNGPmEER9" class="location-text" target="_blank">
                 Ubicación: Jr. Lima con Grau 681, Comas
@@ -737,279 +722,241 @@
 
     <script>
         // Función para enviar mensajes por WhatsApp
-        function enviarWhatsApp(producto) {
-            const mensaje = `¡Hola Comercial Charito! Estoy interesado/a en el producto: ${producto}. ¿Podrían darme más información?`;
-            const url = `https://wa.me/51940243849?text=${encodeURIComponent(mensaje)}`;
+        function enviarWhatsApp(productText) {
+            const mensaje = `¡Hola Comercial Charito! Estoy interesado/a en: ${productText}`;
+            const url = `https://wa.me/51940246849?text=${encodeURIComponent(mensaje)}`;
             window.open(url, '_blank');
         }
         
         // Código para el catálogo
         document.addEventListener('DOMContentLoaded', () => {
-                const catalogGrid = document.getElementById('catalog-products');
-                const genderFilter = document.getElementById('gender-filter');
-                const styleFilter = document.getElementById('style-filter');
-                const categoryFilter = document.getElementById('category-filter');
-                const searchBox = document.getElementById('search-box');
-                const sortButtons = document.querySelectorAll('.sort-btn');
-                const multiSelectActions = document.getElementById('multiSelectActions');
-                const sendSelectedBtn = document.getElementById('sendSelectedBtn');
-                const selectedCount = document.getElementById('selectedCount');
-                
-                let allProducts = [];
-                let currentSort = 'featured';
-                let selectedProducts = [];
-
-                // Botón para resetear filtros
-                    const resetFiltersBtn = document.getElementById('reset-filters');
-                    resetFiltersBtn.addEventListener('click', resetFilters);
-                    
-                // Función mejorada para resetear filtros
-                function resetFilters() {
-                    genderFilter.value = '';
-                    styleFilter.value = '';
-                    categoryFilter.value = '';
-                    searchBox.value = '';
-                    
-                    // Resetear ordenación a "Destacados"
-                    sortButtons.forEach(btn => btn.classList.remove('active'));
-                    document.querySelector('.sort-btn[data-sort="featured"]').classList.add('active');
-                    currentSort = 'featured';
-                    
-                    renderProducts(allProducts);
-                }
+            const catalogGrid = document.getElementById('catalog-products');
+            const genderFilter = document.getElementById('gender-filter');
+            const styleFilter = document.getElementById('style-filter');
+            const categoryFilter = document.getElementById('category-filter');
+            const searchBox = document.getElementById('search-box');
+            const sortButtons = document.querySelectorAll('.sort-btn');
+            const resetFiltersBtn = document.getElementById('reset-filters');
+            const multiSelectActions = document.getElementById('multiSelectActions');
+            const sendSelectedBtn = document.getElementById('sendSelectedBtn');
+            const selectedCount = document.getElementById('selectedCount');
             
-                // Cargar productos
-                fetch('/productos/index.json')
-                    .then(r => r.json())
-                    .then(products => {
-                        allProducts = products;
-                        renderProducts(products);
-                    })
-                    .catch(err => {
-                        console.error('Error cargando productos:', err);
-                        catalogGrid.innerHTML = `
-                            <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
-                                <p>No se pudieron cargar los productos. Por favor intenta nuevamente más tarde.</p>
-                                <button onclick="location.reload()">Recargar página</button>
-                            </div>
-                        `;
-                    });
-                
-                // Actualizar opciones de categoría según género seleccionado
-                genderFilter.addEventListener('change', function() {
-                    updateCategoryOptions(this.value);
-                    renderProducts(allProducts);
-                });
-                
-                // Función para actualizar dinámicamente las categorías
-                function updateCategoryOptions(gender) {
-                    categoryFilter.innerHTML = '<option value="">Todas las categorías</option>';
-                    
-                    const categories = {
-                        mujer: [
-                            'Calzado Mujeres', 'Pantalones Mujeres', 'Vestidos Mujeres',
-                            'Poleras y Casacas Mujeres', 'Polos Mujeres', 'Conjuntos Mujeres',
-                            'Blusas Mujeres', 'Faldas Mujeres'
-                        ],
-                        hombre: [
-                            'Calzado Hombres', 'Pantalones Hombres', 'Polos Hombres',
-                            'Poleras y Casacas Hombres', 'Conjuntos Hombres'
-                        ],
-                        ninos: [
-                            'Calzado Niños y Niñas', 'Pantalones Niños y Niñas'
-                        ]
-                    };
-                    
-                    if (gender && categories[gender]) {
-                        categories[gender].forEach(cat => {
-                            const option = document.createElement('option');
-                            option.value = cat.toLowerCase().replace(/ /g, '-');
-                            option.textContent = cat;
-                            categoryFilter.appendChild(option);
-                        });
-                    } else {
-                        // Mostrar todas las categorías si no hay género seleccionado
-                        Object.values(categories).flat().forEach(cat => {
-                            const option = document.createElement('option');
-                            option.value = cat.toLowerCase().replace(/ /g, '-');
-                            option.textContent = cat;
-                            categoryFilter.appendChild(option);
-                        });
-                    }
-                }
-                
-                // Función principal para renderizar productos con filtros y ordenación
-                function renderProducts(products) {
-                    // Aplicar filtros
-                    let filtered = [...products];
-                    
-                    // Filtro por género
-                    if(genderFilter.value) {
-                        filtered = filtered.filter(p => p.gender === genderFilter.value);
-                    }
-                    
-                    // Filtro por estilo
-                    if(styleFilter.value) {
-                        filtered = filtered.filter(p => p.style === styleFilter.value);
-                    }
-                    
-                    // Filtro por categoría
-                    if(categoryFilter.value) {
-                        filtered = filtered.filter(p => 
-                            p.category.toLowerCase().replace(/ /g, '-') === categoryFilter.value
-                        );
-                    }
-                    
-                    // Filtro por búsqueda
-                    if(searchBox.value) {
-                        const term = searchBox.value.toLowerCase();
-                        filtered = filtered.filter(p => 
-                            p.title.toLowerCase().includes(term) || 
-                            (p.category && p.category.toLowerCase().includes(term))
-                        );
-                    }
-                    
-                    // Aplicar ordenación
-                    switch(currentSort) {
-                        case 'featured':
-                            filtered.sort((a, b) => (b.featured || false) - (a.featured || false));
-                            break;
-                        case 'price-asc':
-                            filtered.sort((a, b) => a.price - b.price);
-                            break;
-                        case 'price-desc':
-                            filtered.sort((a, b) => b.price - a.price);
-                            break;
-                    }
-                    
-                    // Mostrar mensaje si no hay resultados
-                    if(filtered.length === 0) {
-                        catalogGrid.innerHTML = `
-                            <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
-                                <p>No se encontraron productos con los filtros aplicados.</p>
-                                <button onclick="resetFilters()">Limpiar filtros</button>
-                            </div>
-                        `;
-                        return;
-                    }
-                    
-                    // Renderizar productos
-                    catalogGrid.innerHTML = '';
-                    filtered.forEach(prod => {
-                        const card = document.createElement('div');
-                        card.className = `product-card ${prod.featured ? 'featured' : ''}`;
-                        card.innerHTML = `
-                            ${prod.featured ? '<div class="featured-badge">⭐ Destacado</div>' : ''}
-                            <input type="checkbox" class="product-selector" 
-                                   data-product="${prod.title} (Código: ${prod.code || 'N/A'}) - S/${prod.price.toFixed(2)}"
-                                   data-code="${prod.code || ''}">
-                            <div class="product-image">
-                                <img src="${prod.image}" alt="${prod.title}" loading="lazy">
-                            </div>
-                            <div class="product-details">
-                                <span class="product-code">Código: ${prod.code || 'N/A'}</span>
-                                <span class="product-category">${prod.category || 'General'}</span>
-                                <h3 class="product-title">${prod.title}</h3>
-                                <div class="product-price">S/${prod.price.toFixed(2)}</div>
-                                <button class="whatsapp-btn"
-                                    onclick="enviarWhatsApp('${prod.title} (Código: ${prod.code || 'N/A'}) - S/${prod.price.toFixed(2)}')">
-                                    <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
-                                </button>
-                            </div>
-                        `;
-                        catalogGrid.appendChild(card);
-                    });
+            let allProducts = [];
+            let currentSort = 'featured';
+            let selectedProducts = [];
             
-                    // Configurar eventos para selección múltiple
-                    document.querySelectorAll('.product-selector').forEach(checkbox => {
-                        checkbox.addEventListener('change', function() {
-                            const productTitle = this.closest('.product-card').querySelector('.product-title').textContent;
-                            const productPrice = this.closest('.product-card').querySelector('.product-price').textContent;
-                            const productCode = this.dataset.code || 'N/A';
-                            
-                            const productInfo = `${productTitle} (Código: ${productCode}) - ${productPrice}`;
-                            
-                            if(this.checked) {
-                                selectedProducts.push(productInfo);
-                            } else {
-                                selectedProducts = selectedProducts.filter(p => !p.includes(productTitle));
-                            }
-                            
-                            selectedCount.textContent = selectedProducts.length;
-                            multiSelectActions.classList.toggle('show', selectedProducts.length > 0);
-                        });
-                    });
-                }
-                
-                // Event listeners para los filtros
-                genderFilter.addEventListener('change', () => renderProducts(allProducts));
-                styleFilter.addEventListener('change', () => renderProducts(allProducts));
-                categoryFilter.addEventListener('change', () => renderProducts(allProducts));
-                searchBox.addEventListener('input', () => renderProducts(allProducts));
-                
-                // Event listeners para ordenación
-                sortButtons.forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        sortButtons.forEach(b => b.classList.remove('active'));
-                        this.classList.add('active');
-                        currentSort = this.dataset.sort;
-                        renderProducts(allProducts);
-                    });
-                });
-
-                // Puedes añadir esta función para mejor manejo de los productos seleccionados
-                function getSelectedProductsInfo() {
-                    return Array.from(document.querySelectorAll('.product-selector:checked'))
-                        .map(checkbox => {
-                            const card = checkbox.closest('.product-card');
-                            const title = card.querySelector('.product-title').textContent;
-                            const price = card.querySelector('.product-price').textContent;
-                            const code = checkbox.dataset.code || 'N/A';
-                            return `${title} (Código: ${code}) - ${price}`;
-                        });
-                }
-                
-                // Y usarla así en el event listener:
-                sendSelectedBtn.addEventListener('click', function() {
-                    const selected = getSelectedProductsInfo();
-                    if(selected.length === 0) return;
-                    
-                    let message = '¡Hola Comercial Charito! Estoy interesado/a en:\n\n';
-                    message += selected.map((p, i) => `${i+1}. ${p}`).join('\n');
-                    message += '\n\n¿Podrían darme más información?';
-                    
-                    enviarWhatsApp(message);
+            // Cargar productos
+            fetch('/productos/index.json')
+                .then(r => r.json())
+                .then(products => {
+                    allProducts = products;
+                    renderProducts(products);
+                })
+                .catch(err => {
+                    console.error('Error cargando productos:', err);
+                    catalogGrid.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                            <p>No se pudieron cargar los productos. Por favor intenta nuevamente más tarde.</p>
+                            <button onclick="location.reload()">Recargar página</button>
+                        </div>
+                    `;
                 });
             
-                // Botón para enviar selección por WhatsApp
-                sendSelectedBtn.addEventListener('click', function() {
-                    if(selectedProducts.length === 0) return;
-                    
-                    let message = '¡Hola Comercial Charito! Estoy interesado/a en los siguientes productos:\n\n';
-                    
-                    // Obtener los productos completos seleccionados
-                    const selectedFullProducts = allProducts.filter(p => 
-                        selectedProducts.some(sp => sp.includes(p.title))
-                        .map(p => `${p.title} (Código: ${p.code || 'N/A'}) - S/${p.price.toFixed(2)}`);
-                    
-                    message += selectedFullProducts.map((p, i) => `${i+1}. ${p}`).join('\n');
-                    message += '\n\n¿Podrían darme más información?';
-                    
-                    enviarWhatsApp(message);
-                });
-                
-                // Función para resetear filtros
-                function resetFilters() {
-                    genderFilter.value = '';
-                    styleFilter.value = '';
-                    categoryFilter.value = '';
-                    searchBox.value = '';
-                    renderProducts(allProducts);
-                }
-                
-                // Inicializar categorías
-                updateCategoryOptions();
+            // Actualizar opciones de categoría según género seleccionado
+            genderFilter.addEventListener('change', function() {
+                updateCategoryOptions(this.value);
             });
+            
+            function updateCategoryOptions(gender) {
+                categoryFilter.innerHTML = '<option value="">Todas las categorías</option>';
+                
+                const categories = {
+                    mujer: [
+                        'Calzado Mujeres', 'Pantalones Mujeres', 'Vestidos Mujeres',
+                        'Poleras y Casacas Mujeres', 'Polos Mujeres', 'Conjuntos Mujeres',
+                        'Blusas Mujeres', 'Faldas Mujeres'
+                    ],
+                    hombre: [
+                        'Calzado Hombres', 'Pantalones Hombres', 'Polos Hombres',
+                        'Poleras y Casacas Hombres', 'Conjuntos Hombres'
+                    ],
+                    ninos: [
+                        'Calzado Niños y Niñas', 'Pantalones Niños y Niñas'
+                    ]
+                };
+                
+                if (gender && categories[gender]) {
+                    categories[gender].forEach(cat => {
+                        const option = document.createElement('option');
+                        option.value = cat.toLowerCase().replace(/ /g, '-');
+                        option.textContent = cat;
+                        categoryFilter.appendChild(option);
+                    });
+                } else {
+                    // Mostrar todas las categorías si no hay género seleccionado
+                    Object.values(categories).flat().forEach(cat => {
+                        const option = document.createElement('option');
+                        option.value = cat.toLowerCase().replace(/ /g, '-');
+                        option.textContent = cat;
+                        categoryFilter.appendChild(option);
+                    });
+                }
+            }
+            
+            // Función principal para renderizar productos con filtros y ordenación
+            function renderProducts(products) {
+                // Aplicar filtros
+                let filtered = [...products];
+                
+                // Filtro por género
+                if(genderFilter.value) {
+                    filtered = filtered.filter(p => p.gender === genderFilter.value);
+                }
+                
+                // Filtro por estilo
+                if(styleFilter.value) {
+                    filtered = filtered.filter(p => p.style === styleFilter.value);
+                }
+                
+                // Filtro por categoría
+                if(categoryFilter.value) {
+                    filtered = filtered.filter(p => 
+                        p.category.toLowerCase().replace(/ /g, '-') === categoryFilter.value
+                    );
+                }
+                
+                // Filtro por búsqueda
+                if(searchBox.value) {
+                    const term = searchBox.value.toLowerCase();
+                    filtered = filtered.filter(p => 
+                        p.title.toLowerCase().includes(term) || 
+                        (p.category && p.category.toLowerCase().includes(term)) ||
+                        (p.code && p.code.toLowerCase().includes(term))
+                    );
+                }
+                
+                // Aplicar ordenación
+                switch(currentSort) {
+                    case 'featured':
+                        filtered.sort((a, b) => (b.featured || false) - (a.featured || false));
+                        break;
+                    case 'price-asc':
+                        filtered.sort((a, b) => a.price - b.price);
+                        break;
+                    case 'price-desc':
+                        filtered.sort((a, b) => b.price - a.price);
+                        break;
+                }
+                
+                // Mostrar mensaje si no hay resultados
+                if(filtered.length === 0) {
+                    catalogGrid.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                            <p>No se encontraron productos con los filtros aplicados.</p>
+                            <button onclick="resetFilters()">Limpiar filtros</button>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Renderizar productos
+                catalogGrid.innerHTML = '';
+                filtered.forEach(prod => {
+                    const card = document.createElement('div');
+                    card.className = `product-card ${prod.featured ? 'featured' : ''}`;
+                    card.innerHTML = `
+                        ${prod.featured ? '<div class="featured-badge">⭐ Destacado</div>' : ''}
+                        <input type="checkbox" class="product-selector" 
+                               data-product="${prod.title} (Código: ${prod.code || 'N/A'}) - S/${prod.price.toFixed(2)}"
+                               data-code="${prod.code || ''}">
+                        <div class="product-image">
+                            <img src="${prod.image}" alt="${prod.title}" loading="lazy">
+                        </div>
+                        <div class="product-details">
+                            <span class="product-code">Código: ${prod.code || 'N/A'}</span>
+                            <span class="product-category">${prod.category || 'General'}</span>
+                            <h3 class="product-title">${prod.title}</h3>
+                            <div class="product-price">S/${prod.price.toFixed(2)}</div>
+                            <button class="whatsapp-btn"
+                                onclick="enviarWhatsApp('${prod.title} (Código: ${prod.code || 'N/A'}) - S/${prod.price.toFixed(2)}')">
+                                <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+                            </button>
+                        </div>
+                    `;
+                    catalogGrid.appendChild(card);
+                });
+
+                // Configurar eventos para selección múltiple
+                document.querySelectorAll('.product-selector').forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        const productTitle = this.closest('.product-card').querySelector('.product-title').textContent;
+                        const productPrice = this.closest('.product-card').querySelector('.product-price').textContent;
+                        const productCode = this.dataset.code || 'N/A';
+                        
+                        const productInfo = `${productTitle} (Código: ${productCode}) - ${productPrice}`;
+                        
+                        if(this.checked) {
+                            selectedProducts.push(productInfo);
+                        } else {
+                            selectedProducts = selectedProducts.filter(p => !p.includes(productTitle));
+                        }
+                        
+                        selectedCount.textContent = selectedProducts.length;
+                        multiSelectActions.classList.toggle('show', selectedProducts.length > 0);
+                    });
+                });
+            }
+            
+            // Función para resetear filtros
+            function resetFilters() {
+                genderFilter.value = '';
+                styleFilter.value = '';
+                categoryFilter.value = '';
+                searchBox.value = '';
+                
+                // Resetear ordenación a "Destacados"
+                sortButtons.forEach(btn => btn.classList.remove('active'));
+                document.querySelector('.sort-btn[data-sort="featured"]').classList.add('active');
+                currentSort = 'featured';
+                
+                // Actualizar categorías
+                updateCategoryOptions();
+                
+                // Renderizar productos
+                renderProducts(allProducts);
+            }
+            
+            // Event listeners para los filtros
+            genderFilter.addEventListener('change', () => renderProducts(allProducts));
+            styleFilter.addEventListener('change', () => renderProducts(allProducts));
+            categoryFilter.addEventListener('change', () => renderProducts(allProducts));
+            searchBox.addEventListener('input', () => renderProducts(allProducts));
+            resetFiltersBtn.addEventListener('click', resetFilters);
+            
+            // Event listeners para ordenación
+            sortButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    sortButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentSort = this.dataset.sort;
+                    renderProducts(allProducts);
+                });
+            });
+            
+            // Botón para enviar selección por WhatsApp
+            sendSelectedBtn.addEventListener('click', function() {
+                if(selectedProducts.length === 0) return;
+                
+                let message = '¡Hola Comercial Charito! Estoy interesado/a en los siguientes productos:\n\n';
+                message += selectedProducts.map((p, i) => `${i+1}. ${p}`).join('\n');
+                message += '\n\n¿Podrían darme más información?';
+                
+                enviarWhatsApp(message);
+            });
+            
+            // Inicializar categorías
+            updateCategoryOptions();
+        });
     </script>
 </body>
 </html>
