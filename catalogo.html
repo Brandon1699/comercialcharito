@@ -67,6 +67,37 @@
             border-radius: 2px;
         }
 
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            margin-right: 15px;
+            cursor: pointer;
+            z-index: 100;
+        }
+        
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--texto);
+            transition: all 0.3s ease;
+        }
+        
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
         /* NAVIGATION BAR */
         .navbar {
             display: flex;
@@ -140,6 +171,27 @@
             color: var(--rosa);
         }
 
+        .mobile-social-icons {
+            display: none;
+            justify-content: center;
+            gap: 20px;
+            padding: 15px 0;
+            width: 100%;
+            border-top: 1px solid var(--gris);
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .mobile-social-icons a {
+            color: var(--texto);
+            font-size: 24px;
+            transition: color 0.2s ease;
+        }
+        
+        .mobile-social-icons a:hover {
+            color: var(--rosa);
+        }
+
         /* PRODUCTOS */
         .products-grid {
             display: grid;
@@ -161,7 +213,7 @@
         
         .product-image {
             height: 220px;
-            background: var(--gris);
+            background: var(--blanco); /* Cambiado de var(--gris) a var(--blanco) */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -510,22 +562,48 @@
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .navbar {
-                flex-direction: column;
-                padding: 8px 15px;
-                gap: 12px;
+                flex-direction: row;
+                padding: 12px 15px;
+            }
+
+            .menu-toggle {
+                display: flex;
             }
             
             .nav-menu {
-                order: 3;
+                display: none;
+                position: fixed;
+                top: 60px;
+                left: 0;
                 width: 100%;
-                justify-content: center;
-                margin-top: 8px;
-                gap: 15px;
-                flex: none;
+                background: var(--blanco);
+                flex-direction: column;
+                gap: 0;
+                padding: 15px 0;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid var(--gris);
             }
             
             .nav-menu a {
-                font-size: 16px;
+                padding: 12px 0;
+                display: block;
+            }
+
+            .desktop-social-icons {
+                display: none;
+            }
+
+            .mobile-social-icons.active {
+                display: flex;
             }
             
             .social-icons {
@@ -541,18 +619,20 @@
             }
             
             .products-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 1rem;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .product-image {
+                height: 160px;
             }
             
             .catalog-controls {
                 flex-direction: column;
-                align-items: stretch;
+                gap: 10px;
             }
             
             .filter-group {
-                flex-direction: column;
-                gap: 0.5rem;
+                width: 100%;
             }
             
             .filter-select, .search-box, .reset-filters-btn {
@@ -567,6 +647,7 @@
             
             .sort-options {
                 justify-content: center;
+                flex-wrap: wrap;
             }
             
             footer {
@@ -610,18 +691,29 @@
             <img src="logotipo.png" alt="Logo Comercial Charito" />
             <span class="logo-text">COMERCIAL CHARITO</span>
         </div>
-
+    
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    
         <ul class="nav-menu">
             <li><a href="index.html">Inicio</a></li>
             <li><a href="#productos">Catálogo</a></li>
-            <li><a href="https://wa.me/51940246849">Contacto</a></li>
+            <li><a href="https://wa.me/51940243849">Contacto</a></li>
             <li><a href="#transmisiones">Transmisiones</a></li>
+            <div class="mobile-social-icons">
+                <a href="https://www.facebook.com/CharitoYsusNovedades/?locale=es_LA" target="_blank"><i class='bx bxl-facebook-circle'></i></a>
+                <a href="https://www.tiktok.com/@c.charito?is_from_webapp=1&sender_device=pc" target="_blank"><i class='bx bxl-tiktok'></i></a>
+                <a href="https://wa.me/51940243849"><i class='bx bxl-whatsapp'></i></a>
+            </div>
         </ul>
-
-        <div class="social-icons">
+    
+        <div class="desktop-social-icons">
             <a href="https://www.facebook.com/CharitoYsusNovedades/?locale=es_LA" target="_blank"><i class='bx bxl-facebook-circle'></i></a>
             <a href="https://www.tiktok.com/@c.charito?is_from_webapp=1&sender_device=pc" target="_blank"><i class='bx bxl-tiktok'></i></a>
-            <a href="https://wa.me/51940246849"><i class='bx bxl-whatsapp'></i></a>
+            <a href="https://wa.me/51940243849"><i class='bx bxl-whatsapp'></i></a>
         </div>
     </nav>
 
@@ -956,7 +1048,26 @@
             
             // Inicializar categorías
             updateCategoryOptions();
-        });
+
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            const mobileSocialIcons = document.querySelector('.mobile-social-icons');
+            
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                mobileSocialIcons.classList.toggle('active');
+            });
+        
+            // Cerrar menú al hacer clic en un enlace
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    mobileSocialIcons.classList.remove('active');
+                });
+            });
+        });        
     </script>
 </body>
 </html>
