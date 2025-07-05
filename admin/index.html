@@ -24,28 +24,6 @@
             return entry.get('data');
           }
         });
-
-        // Nuevo: Evento postSave para notificación
-        CMS.registerEventListener({
-          name: 'postSave',
-          handler: ({ entry }) => {
-            if (entry.get('collection') === 'productos') {
-              const product = entry.get('data').toJS();
-              const message = `🆕 *Nuevo Producto* 🛍️\n\n` +
-                             `*${product.title}*\n` +
-                             `Precio: S/${product.price.toFixed(2)}\n` +
-                             `Código: ${product.code}\n` +
-                             `Categoría: ${product.category}\n\n` +
-                             `Ver en catálogo: ${window.location.origin}`;
-              
-              // Abre pestaña con enlace a WhatsApp (solución semi-automática)
-              window.open(
-                `https://web.whatsapp.com/send?text=${encodeURIComponent(message)}&phone=51940243849`,
-                '_blank'
-              );
-            }
-          }
-        });
       }
     });
   </script>
