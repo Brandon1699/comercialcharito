@@ -422,13 +422,17 @@
             z-index: 2;
         }
 
-        /* CONTROLES DEL CATÁLOGO */
+        /* CONTROLES DEL CATÁLOGO - MODIFICADO PARA MÓVIL */
         .catalog-controls {
-            display: flex;
+            display: none; /* Oculto por defecto en móvil */
             flex-direction: column;
             gap: 10px;
             margin-bottom: 1.5rem;
             padding: 0 10px;
+        }
+        
+        .catalog-controls.active {
+            display: flex; /* Mostrar cuando está activo */
         }
         
         .filter-group {
@@ -507,6 +511,31 @@
 
         .reset-filters-btn:hover {
             background: #c71545;
+        }
+
+        /* BOTÓN PARA MOSTRAR FILTROS EN MÓVIL */
+        .show-filters-btn {
+            display: block;
+            background: var(--azul);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 0 auto 1rem;
+            transition: all 0.3s;
+            width: calc(100% - 20px);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .show-filters-btn:hover {
+            background: #0d2a5a;
+        }
+
+        .show-filters-btn i {
+            margin-right: 8px;
         }
 
         /* FOOTER - IGUAL AL INDEX.HTML */
@@ -735,6 +764,7 @@
             }
             
             .catalog-controls {
+                display: flex !important; /* Siempre visible en desktop */
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: space-between;
@@ -793,6 +823,11 @@
             .send-selected-btn {
                 width: auto;
             }
+            
+            /* Ocultar botón de mostrar filtros en desktop */
+            .show-filters-btn {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -837,7 +872,12 @@
                 <p>Explora nuestra colección de productos</p>
             </div>
             
-            <div class="catalog-controls">
+            <!-- Botón para mostrar filtros en móvil -->
+            <button class="show-filters-btn" id="showFiltersBtn">
+                <i class="fas fa-filter"></i> Mostrar Filtros
+            </button>
+            
+            <div class="catalog-controls" id="catalogControls">
                 <div class="filter-group">
                     <select id="gender-filter" class="filter-select">
                         <option value="">Todos los géneros</option>
@@ -946,6 +986,8 @@
             const menuToggle = document.querySelector('.menu-toggle');
             const navMenu = document.querySelector('.nav-menu');
             const mobileSocialIcons = document.querySelector('.mobile-social-icons');
+            const showFiltersBtn = document.getElementById('showFiltersBtn');
+            const catalogControls = document.getElementById('catalogControls');
             
             let allProducts = [];
             let currentSort = 'featured';
@@ -967,6 +1009,14 @@
                         </div>
                     `;
                 });
+            
+            // Mostrar/ocultar filtros en móvil
+            showFiltersBtn.addEventListener('click', () => {
+                catalogControls.classList.toggle('active');
+                showFiltersBtn.innerHTML = catalogControls.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i> Ocultar Filtros' 
+                    : '<i class="fas fa-filter"></i> Mostrar Filtros';
+            });
             
             // Actualizar opciones de categoría según género seleccionado
             genderFilter.addEventListener('change', function() {
